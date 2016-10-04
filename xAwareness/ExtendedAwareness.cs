@@ -72,7 +72,7 @@ namespace xAwareness
         private void Game_OnGameLoad(EventArgs args)
         {
             //menu = mainMenu;
-
+            Game.PrintChat("<font size='30'>xAwareness</font> <font color='#b756c5'>by LordZEDith</font>");
             Menu positionAwarenessMenu = new Menu("xAwareness", "xAwareness", true);
             positionAwarenessMenu.AddItem(new MenuItem("ShowAllyPosition", "Show Ally").SetValue(false));
             positionAwarenessMenu.AddItem(new MenuItem("ShowEnemyPosition", "Show Enemy").SetValue(true));
