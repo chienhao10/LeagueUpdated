@@ -12,6 +12,7 @@ namespace xAwareness
 
         static void Main(string[] args)
         {
+            Game.PrintChat("<font size='30'>xAwarness</font> <font color='#b756c5'>by LordZedith</font>");
             extendedAwareness = new ExtendedAwareness();
         }
     }
