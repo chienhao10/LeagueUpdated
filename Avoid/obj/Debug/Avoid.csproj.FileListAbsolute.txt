@@ -1,0 +1,15 @@
+C:\Users\vrand\Documents\Leagueshrp\Avoid\bin\Release\Avoid.exe.config
+C:\Users\vrand\Documents\Leagueshrp\Avoid\bin\Release\Avoid.exe
+C:\Users\vrand\Documents\Leagueshrp\Avoid\bin\Release\Avoid.pdb
+C:\Users\vrand\Documents\Leagueshrp\Avoid\bin\Release\LeagueSharp.Common.dll
+C:\Users\vrand\Documents\Leagueshrp\Avoid\bin\Release\LeagueSharp.dll
+C:\Users\vrand\Documents\Leagueshrp\Avoid\bin\Release\SharpDX.Direct3D9.dll
+C:\Users\vrand\Documents\Leagueshrp\Avoid\bin\Release\SharpDX.dll
+C:\Users\vrand\Documents\Leagueshrp\Avoid\bin\Release\LeagueSharp.Data.dll
+C:\Users\vrand\Documents\Leagueshrp\Avoid\bin\Release\clipper_library.dll
+C:\Users\vrand\Documents\Leagueshrp\Avoid\bin\Release\Newtonsoft.Json.dll
+C:\Users\vrand\Documents\Leagueshrp\Avoid\bin\Release\LeagueSharp.Common.pdb
+C:\Users\vrand\Documents\Leagueshrp\Avoid\bin\Release\LeagueSharp.Data.pdb
+C:\Users\vrand\Documents\Leagueshrp\Avoid\bin\Release\clipper_library.pdb
+C:\Users\vrand\Documents\Leagueshrp\Avoid\obj\Debug\Avoid.exe
+C:\Users\vrand\Documents\Leagueshrp\Avoid\obj\Debug\Avoid.pdb
