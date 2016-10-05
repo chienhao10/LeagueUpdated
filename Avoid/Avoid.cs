@@ -132,7 +132,7 @@ namespace Avoid
         public static void OnGameStart()
         {
             // Check for updates
-            UpdateChecker.Initialize("Hellsing/LeagueSharp/master/Avoid");
+            UpdateChecker.Initialize("LordZEDith/LeagueUpdated/tree/master/Avoid");
 
 #if !DEBUG
             // Validate that there are avoidable objects in the current matchup
