@@ -85,6 +85,9 @@ namespace LordsAntiThresh
                 case "Janna":
                     InitSpell(SpellSlot.Q, 850f, TargetSelector.DamageType.Magical);
                     break;
+                    case "Jinx":
+                    InitSpell(SpellSlot.E, 900f, TargetSelector.DamageType.Magical);
+                    break;
                 default :
                     break;
             }
