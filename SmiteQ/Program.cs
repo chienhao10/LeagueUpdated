@@ -64,6 +64,12 @@ namespace SmiteQ
                  Q.SetSkillshot(0.5f, 40f, 1300f, true, SkillshotType.SkillshotLine);
                  Champ = "Nidalee";
              }
+           /* else if (ObjectManager.Player.CharData.BaseSkinName == "Ivern")
+             {
+                 Q = new Spell(SpellSlot.Q, 1500);
+                 Q.SetSkillshot(0.5f, 40f, 1300f, true, SkillshotType.SkillshotLine);
+                 Champ = "Ivern";
+             } */
             else
             {
                 return;
