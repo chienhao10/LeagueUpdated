@@ -1,0 +1,16 @@
+C:\Users\vrand\Documents\Leagueshrp\SmiteQ\bin\Debug\SmiteQ.exe.config
+C:\Users\vrand\Documents\Leagueshrp\SmiteQ\bin\Debug\SmiteQ.exe
+C:\Users\vrand\Documents\Leagueshrp\SmiteQ\bin\Debug\SmiteQ.pdb
+C:\Users\vrand\Documents\Leagueshrp\SmiteQ\bin\Debug\clipper_library.dll
+C:\Users\vrand\Documents\Leagueshrp\SmiteQ\bin\Debug\LeagueSharp.Common.dll
+C:\Users\vrand\Documents\Leagueshrp\SmiteQ\bin\Debug\LeagueSharp.dll
+C:\Users\vrand\Documents\Leagueshrp\SmiteQ\bin\Debug\SharpDX.dll
+C:\Users\vrand\Documents\Leagueshrp\SmiteQ\bin\Debug\SharpDX.Direct3D9.dll
+C:\Users\vrand\Documents\Leagueshrp\SmiteQ\bin\Debug\LeagueSharp.Data.dll
+C:\Users\vrand\Documents\Leagueshrp\SmiteQ\bin\Debug\Newtonsoft.Json.dll
+C:\Users\vrand\Documents\Leagueshrp\SmiteQ\bin\Debug\clipper_library.pdb
+C:\Users\vrand\Documents\Leagueshrp\SmiteQ\bin\Debug\LeagueSharp.Common.pdb
+C:\Users\vrand\Documents\Leagueshrp\SmiteQ\bin\Debug\LeagueSharp.Data.pdb
+C:\Users\vrand\Documents\Leagueshrp\SmiteQ\obj\x86\Debug\SmiteQ.csprojResolveAssemblyReference.cache
+C:\Users\vrand\Documents\Leagueshrp\SmiteQ\obj\x86\Debug\SmiteQ.exe
+C:\Users\vrand\Documents\Leagueshrp\SmiteQ\obj\x86\Debug\SmiteQ.pdb

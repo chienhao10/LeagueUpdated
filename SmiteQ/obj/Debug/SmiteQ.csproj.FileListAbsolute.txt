@@ -1,0 +1,9 @@
+C:\Users\vrand\Documents\Leagueshrp\SSJ4 SmiteQ\bin\Release\SmiteQ.exe.config
+C:\Users\vrand\Documents\Leagueshrp\SSJ4 SmiteQ\bin\Release\SmiteQ.exe
+C:\Users\vrand\Documents\Leagueshrp\SSJ4 SmiteQ\bin\Release\SmiteQ.pdb
+C:\Users\vrand\Documents\Leagueshrp\SSJ4 SmiteQ\bin\Release\SharpDX.Direct3D9.dll
+C:\Users\vrand\Documents\Leagueshrp\SSJ4 SmiteQ\bin\Release\LeagueSharp.Sandbox.dll
+C:\Users\vrand\Documents\Leagueshrp\SSJ4 SmiteQ\bin\Release\LeagueSharp.xml
+C:\Users\vrand\Documents\Leagueshrp\SSJ4 SmiteQ\obj\Debug\SmiteQ.csprojResolveAssemblyReference.cache
+C:\Users\vrand\Documents\Leagueshrp\SSJ4 SmiteQ\obj\Debug\SmiteQ.exe
+C:\Users\vrand\Documents\Leagueshrp\SSJ4 SmiteQ\obj\Debug\SmiteQ.pdb
