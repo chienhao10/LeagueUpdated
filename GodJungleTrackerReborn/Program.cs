@@ -1525,7 +1525,7 @@ namespace GodJungleTracker
                 _menu.SubMenu("Drawing").AddItem(new MenuItem("circlewidth", "Circle Width").SetValue(new Slider(1, 1, 4)));
 
                 //Advanced
-                /*_menu.AddSubMenu(new Menu("Advanced", "Advanced"));
+                _menu.AddSubMenu(new Menu("Advanced", "Advanced"));
                 var advanced = _menu.SubMenu("Advanced");
                 advanced.SubMenu("Headers").AddItem(new MenuItem("forcefindheaders", "Force Auto-Find Headers").SetValue(false));
                 advanced.SubMenu("Headers").AddItem(new MenuItem("headerOnAttack2" + GameVersion, "Header OnAttack").SetValue(new Slider(0, 0, 400)));
@@ -1536,9 +1536,9 @@ namespace GodJungleTracker
                 advanced.SubMenu("Headers").AddItem(new MenuItem("headerOnCreateCampIcon" + GameVersion, "Header OnCreateCampIcon").SetValue(new Slider(0, 0, 400)));
                 advanced.SubMenu("Headers").AddItem(new MenuItem("headerOnPatienceChange" + GameVersion, "Header OnPatienceChange").SetValue(new Slider(0, 0, 400)));
                 advanced.SubMenu("Headers").AddItem(new MenuItem("patch", "Headers From Patch: " + GameVersion));
-                _menu.SubMenu("Advanced").AddItem(new MenuItem("updatetick", "Update Tick").SetValue(new Slider(150,0,1000)));
-*/
-//Not needed to general consumer
+               _menu.SubMenu("Advanced").AddItem(new MenuItem("updatetick", "Update Tick").SetValue(new Slider(150,0,1000)));
+
+
                 _menu.AddToMainMenu();
             }
             catch (Exception)
