@@ -1489,7 +1489,7 @@ namespace GodJungleTracker
             try
             {
 
-                Game.PrintChat("<font size='30'>PerfectWard Reborn</font> <font color='#b756c5'>by LordZEDith</font>");
+                Game.PrintChat("<font size='30'>GodJungleTracker Reborn</font> <font color='#b756c5'>by LordZEDith</font>");
                 //Start Menu
                 _menu = new Menu("God Jungle Tracker", "God Jungle Tracker", true);
 
