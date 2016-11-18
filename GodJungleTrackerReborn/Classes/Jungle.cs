@@ -86,13 +86,14 @@ namespace GodJungleTracker.Classes
                         GameObjectTeam.Order,
                         Color.Red, new Timers(new Vector2(0,0),new Vector2(0,0)), true),
                         
-                    //Order: Krug
+                    //Order: 
+                    
                     new Camp("Krug",
                         100, 100, new Vector3(8381f, 2711f, 51f),
                         new List<Mob>(
                             new[] 
                             { 
-                                new Mob("SRU_Krug5.1.2"), 
+                                new Mob("SRU_Krug5.1.1"), 
                                 new Mob("SRU_KrugMini5.1.1"),
                                 new Mob("SRU_KrugMini5.1.2"),
                                 new Mob("SRU_KrugMini5.1.3"),
@@ -176,7 +177,7 @@ namespace GodJungleTracker.Classes
                         new List<Mob>(
                             new[] 
                             { 
-                                new Mob("SRU_Krug11.1.2"),
+                                new Mob("SRU_Krug11.1.1"),
                                 new Mob("SRU_KrugMini11.1.1"),
                                 new Mob("SRU_KrugMini11.1.2"),
                                 new Mob("SRU_KrugMini11.1.3"),
