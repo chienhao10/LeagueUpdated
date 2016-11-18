@@ -34,7 +34,7 @@ namespace GodJungleTracker.Classes
                 {
                     // Order: Blue
                     new Camp("Blue",
-                        115, 300, new Vector3(3872f, 7900f, 51f),
+                        100, 300, new Vector3(3872f, 7900f, 51f),
                         new List<Mob>(
                             new[]
                             {
@@ -47,7 +47,7 @@ namespace GodJungleTracker.Classes
                         Color.Cyan, new Timers(new Vector2(0,0),new Vector2(0,0)), true),
                     //Order: Wolves
                     new Camp("Wolves",
-                        115, 100, new Vector3(3825f, 6491f, 52f),
+                        100, 100, new Vector3(3825f, 6491f, 52f),
                         new List<Mob>(
                             new[]
                             {
@@ -60,7 +60,7 @@ namespace GodJungleTracker.Classes
                         Color.White, new Timers(new Vector2(0,0),new Vector2(0,0))),
                     //Order: Raptor
                     new Camp("Raptor",
-                        115, 100, new Vector3(6954f, 5458f, 53f),
+                        100, 100, new Vector3(6954f, 5458f, 53f),
                         new List<Mob>(
                             new[]
                             {
@@ -74,7 +74,7 @@ namespace GodJungleTracker.Classes
                         Color.Salmon, new Timers(new Vector2(0,0),new Vector2(0,0)), true),
                     //Order: Red
                     new Camp("Red",
-                        115, 300, new Vector3(7862f, 4111f, 54f),
+                        100, 300, new Vector3(7862f, 4111f, 54f),
                         new List<Mob>(
                             new[]
                             { 
@@ -88,7 +88,7 @@ namespace GodJungleTracker.Classes
                         
                     //Order: Krug
                     new Camp("Krug",
-                        115, 100, new Vector3(8381f, 2711f, 51f),
+                        100, 100, new Vector3(8381f, 2711f, 51f),
                         new List<Mob>(
                             new[] 
                             { 
@@ -119,7 +119,7 @@ namespace GodJungleTracker.Classes
                         Color.Green, new Timers(new Vector2(0,0),new Vector2(0,0)), true),
                     //Chaos: Blue
                     new Camp("Blue",
-                        115, 300, new Vector3(10930f, 6992f, 52f),
+                        100, 300, new Vector3(10930f, 6992f, 52f),
                         new List<Mob>(
                             new[]
                             {
@@ -132,7 +132,7 @@ namespace GodJungleTracker.Classes
                         Color.Cyan, new Timers(new Vector2(0,0),new Vector2(0,0)), true),
                     //Chaos: Wolves
                     new Camp("Wolves",
-                        115, 100, new Vector3(10957f, 8350f, 62f),
+                        100, 100, new Vector3(10957f, 8350f, 62f),
                         new List<Mob>(
                             new[]
                             {
@@ -145,7 +145,7 @@ namespace GodJungleTracker.Classes
                         Color.White, new Timers(new Vector2(0,0),new Vector2(0,0))),
                     //Chaos: Raptor
                     new Camp("Raptor",
-                        115, 100, new Vector3(7857f, 9471f, 52f),
+                        100, 100, new Vector3(7857f, 9471f, 52f),
                         new List<Mob>(
                             new[]
                             {
@@ -159,7 +159,7 @@ namespace GodJungleTracker.Classes
                         Color.Salmon, new Timers(new Vector2(0,0),new Vector2(0,0)), true),
                     //Chaos: Red
                     new Camp("Red",
-                        115, 300, new Vector3(7017f, 10775f, 56f),
+                        100, 300, new Vector3(7017f, 10775f, 56f),
                         new List<Mob>(
                             new[]
                             {
@@ -172,7 +172,7 @@ namespace GodJungleTracker.Classes
                         Color.Red, new Timers(new Vector2(0,0),new Vector2(0,0)), true),
                     //Chaos: Krug
                     new Camp("Krug",
-                        115, 100, new Vector3(6449f, 12117f, 56f),
+                        100, 100, new Vector3(6449f, 12117f, 56f),
                         new List<Mob>(
                             new[] 
                             { 
@@ -218,7 +218,7 @@ namespace GodJungleTracker.Classes
                         Color.Orange, new Timers(new Vector2(0,0),new Vector2(0,0))),
                     //Neutral: RiftHerald
                     new Camp("RiftHerald",
-                        120, 300, new Vector3(5007f, 10471f, -71f),
+                        600, 300, new Vector3(5007f, 10471f, -71f),
                         new List<Mob>(
                             new[]
                             {
@@ -229,7 +229,7 @@ namespace GodJungleTracker.Classes
                         Color.DarkOrchid, new Timers(new Vector2(0,0),new Vector2(0,0)), true,  8),
                     //Neutral: Baron
                     new Camp("Baron",
-                        120, 420, new Vector3(5007f, 10471f, -71f),
+                        1200, 420, new Vector3(5007f, 10471f, -71f),
                         new List<Mob>(
                             new[] 
                             {
