@@ -918,7 +918,7 @@ namespace LordsFizz
                                 startPos = Player.Position;
                                 SharpDX.Vector3 harassEcastPosition = E.GetPrediction(m, false, 1).CastPosition;
                                 E.Cast(harassEcastPosition);
-                                //Delay for FizzJumpTwo
+                                //Delay for fizzjumptwo
                                 Utility.DelayAction.Add((365 - ping), () => E.Cast(E.GetPrediction(m, false, 1).CastPosition.Extend(startPos, -135)));
                             }
                             if (useW && (Player.Distance(m.Position) <= 175))
@@ -936,7 +936,7 @@ namespace LordsFizz
                                 startPos = Player.Position;
                                 SharpDX.Vector3 harassEcastPosition3 = E.GetPrediction(m, false, 1).CastPosition;
                                 E.Cast(harassEcastPosition3);
-                                //Delay for FizzJumpTwo
+                                //Delay for fizzjumptwo
                                 Utility.DelayAction.Add((365 - ping), () =>
                                 {
                                     E.Cast(E.GetPrediction(m, false, 1).CastPosition.Extend(startPos, -135));
@@ -1252,7 +1252,7 @@ namespace LordsFizz
                             castPosition = E.GetPrediction(m, false, 1).CastPosition.Extend(Player.Position, -165);
                             E.Cast(castPosition);
                         }
-                        if (E.Instance.Name == "FizzJumpTwo" && Player.Distance(m.Position) > 330)
+                        if (E.Instance.Name == "fizzjumptwo" && Player.Distance(m.Position) > 330)
                         {
                             //Use E2 if target not in range
                             castPosition = E.GetPrediction(m, false, 1).CastPosition.Extend(Player.Position, -135);
