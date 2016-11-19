@@ -10,7 +10,7 @@ using Color = System.Drawing.Color;
 using System.Drawing;
 using SharpDX;
 
-namespace MathFizz
+namespace LordsFizz
 {
     class Program
     {
