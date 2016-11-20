@@ -13,7 +13,7 @@ namespace LordsAntiThresh
     {
         static Menu Menu;
         static Spell Spell;
-        static Items.Item _stealthWard, _visionWard, _Trinket, _SightStone, _RSightStone , _zzRot, _StealthV, _StealthG, _Eyeofthe, _EyeoftheO, _EyeoftheW, _FSight;
+        static Items.Item _stealthWard, _controlWard, _Trinket, _SightStone, _RSightStone , _zzRot, _StealthV, _StealthG, _Eyeofthe, _EyeoftheO, _EyeoftheW, _FSight;
         static Obj_AI_Hero Player
         {
             get
@@ -96,7 +96,7 @@ namespace LordsAntiThresh
             }
 
             _stealthWard = new Items.Item(3361, 600f);
-            _visionWard = new Items.Item(3362, 600f);
+            _controlWard = new Items.Item(2055, 600f);
             _Trinket = new Items.Item(3340, 600f);
 
             _SightStone = new Items.Item(2049, 600f);
@@ -108,6 +108,7 @@ namespace LordsAntiThresh
             _Eyeofthe = new Items.Item(2303, 600f);
             _EyeoftheO = new Items.Item(2302, 600f);
             _EyeoftheW = new Items.Item(2301, 600f);
+            
 
             Game.OnUpdate += Game_OnUpdate;
 
@@ -173,9 +174,9 @@ namespace LordsAntiThresh
                 return;
             }
 
-            if (_visionWard.IsReady() && _visionWard.IsInRange(lanternPos))
+            if (_controlWard.IsReady() && _controlWard.IsInRange(lanternPos))
             {
-                _visionWard.Cast(lanternPos);
+                _controlWard.Cast(lanternPos);
                 return;
             }
 
