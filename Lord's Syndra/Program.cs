@@ -207,8 +207,8 @@ namespace LordsSyndra
             Menu.SubMenu("Drawing").AddItem(new MenuItem("DrawWMAP", "W Target Parameters").SetValue(false));
             Menu.SubMenu("Drawing").AddItem(new MenuItem("Gank", "Gankable Enemy Indicator").SetValue(false));
             Menu.SubMenu("Drawing").AddItem(new MenuItem("HUD", "Heads-up Display").SetValue(true));
-            Menu.SubMenu("Drawing").AddItem(new MenuItem("DrawHPFill", "After Combo HP Fill").SetValue(false));
-            Menu.SubMenu("Drawing").AddItem(new MenuItem("KillText", "Kill Text").SetValue(false));
+            Menu.SubMenu("Drawing").AddItem(new MenuItem("DrawHPFill", "After Combo HP Fill").SetValue(true));
+            Menu.SubMenu("Drawing").AddItem(new MenuItem("KillText", "Kill Text").SetValue(true));
             Menu.SubMenu("Drawing").AddItem(new MenuItem("KillTextHP", "% HP After Combo Text").SetValue(false));
             Menu.SubMenu("Drawing").AddItem(new MenuItem("drawing", "Damage Indicator").SetValue(true));
 
@@ -687,7 +687,8 @@ namespace LordsSyndra
             }
         }
 
-        public static void Drawing_OnDraw(EventArgs args)
+        public static void 
+            ing_OnDraw(EventArgs args)
         {
             Drawings.Draw();
         }
