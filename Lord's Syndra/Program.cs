@@ -94,7 +94,7 @@ namespace LordsSyndra
         public static void SyndraMenu()
         {
             //Base menu
-            Menu = new Menu("Syndra" + ChampionName, "Syndra" + ChampionName, true);
+            Menu = new Menu("Lord's" + ChampionName, "Lord's" + ChampionName, true);
             orbwalkerMenu = new Menu("[Syndra] Orbwalker", "[Syndra] Orbwalker");
             //TargetSelector
             TargetSelector.AddToMenu(Menu.SubMenu("[Syndra] Target Selector"));
@@ -141,7 +141,7 @@ namespace LordsSyndra
             Menu.SubMenu("AutoKS").AddItem(new MenuItem("UseWKS", "Use W").SetValue(true));
             Menu.SubMenu("AutoKS").AddItem(new MenuItem("UseEKS", "Use E").SetValue(true));
             Menu.SubMenu("AutoKS").AddItem(new MenuItem("UseQEKS", "Use QE").SetValue(true));
-            Menu.SubMenu("AutoKS").AddItem(new MenuItem("UseRKS", "Use R").SetValue(true));
+            Menu.SubMenu("AutoKS").AddItem(new MenuItem("UseRKS", "Use R").SetValue(false));
             Menu.SubMenu("AutoKS").AddItem(new MenuItem("AutoKST", "Killsteal [TOGGLE]").SetValue(new KeyBind("U".ToCharArray()[0],KeyBindType.Toggle, true)));
 
             //Auto Flash Kill
@@ -217,7 +217,7 @@ namespace LordsSyndra
             about.AddItem(new MenuItem("AboutText", "About"));
             about.AddItem(new MenuItem("Author", "Author: LordZEDith").SetFontStyle(FontStyle.Italic, fontColor: SharpDX.Color.White));
             about.AddItem(new MenuItem("Credits", "Credits: Big Thanks ScienceArk for Updates and stephenjason89"));
-            about.AddItem(new MenuItem("Credits", "Credits: Sebby,NightMoon,xSLx & Esk0r"));
+            about.AddItem(new MenuItem("2Credits", "Credits: Sebby,NightMoon,xSLx & Esk0r"));
             about.AddItem(new MenuItem("Upvote", "Remember to upvote the assembly if you like it ! GL & HF").SetFontStyle(FontStyle.Italic, fontColor: SharpDX.Color.Goldenrod));
 
             //Add main menu
