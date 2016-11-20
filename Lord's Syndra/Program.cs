@@ -687,8 +687,7 @@ namespace LordsSyndra
             }
         }
 
-        public static void 
-            ing_OnDraw(EventArgs args)
+        public static void Drawing_OnDraw(EventArgs args)
         {
             Drawings.Draw();
         }
