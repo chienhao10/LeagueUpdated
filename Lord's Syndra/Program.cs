@@ -94,13 +94,13 @@ namespace LordsSyndra
         public static void SyndraMenu()
         {
             //Base menu
-            Menu = new Menu("Lord's" + ChampionName, "Lord's" + ChampionName, true);
+            Menu = new Menu("Lord's " + ChampionName, "Lord's " + ChampionName, true);
             orbwalkerMenu = new Menu("[Syndra] Orbwalker", "[Syndra] Orbwalker");
             //TargetSelector
             TargetSelector.AddToMenu(Menu.SubMenu("[Syndra] Target Selector"));
 
             //Orbwalker
-            orbwalkerMenu.AddItem(new MenuItem("Orbwalker_Mode", "Sebby Orbwalker").SetValue(false));
+            orbwalkerMenu.AddItem(new MenuItem("Orbwalker_Mode", "Sebby Orbwalker").SetValue(true));
             Menu.AddSubMenu(orbwalkerMenu);
             ChooseOrbwalker(Menu.Item("Orbwalker_Mode").GetValue<bool>()); //uncomment this line
            
