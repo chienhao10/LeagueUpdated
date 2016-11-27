@@ -295,13 +295,12 @@ namespace LordsSyndra
         public static void Spellsdata()
         {
             Spells.Q = new Spell(SpellSlot.Q, 800);
-            Spells.Q.SetSkillshot(0.85f, 125f, float.MaxValue, false, SkillshotType.SkillshotCircle);
-
+            Spells.Q.SetSkillshot(0.5f, 130f, 2000f, false, SkillshotType.SkillshotCircle);
             Spells.W = new Spell(SpellSlot.W, 925);
             Spells.W.SetSkillshot(0.25f, 140f, 1600f, false, SkillshotType.SkillshotCircle);
 
             Spells.E = new Spell(SpellSlot.E, 700);
-            Spells.E.SetSkillshot(0.30f, (float)(45 * 0.5), 2500, false, SkillshotType.SkillshotCone);
+            Spells.E.SetSkillshot(0.25f, (float)(45 * 0.5), 2500f, false, SkillshotType.SkillshotCircle);
 
             Spells.R = new Spell(SpellSlot.R, 675);
             Spells.R.SetTargetted(0.5f, 1100f);
@@ -309,7 +308,7 @@ namespace LordsSyndra
             //QE = new Spell(SpellSlot.E, 1100);
             //QE.SetSkillshot(float.MaxValue, 55f, 2000f, false, SkillshotType.SkillshotCircle);
             Spells.QE = new Spell(SpellSlot.E, 1300);
-            Spells.QE.SetSkillshot(float.MaxValue, 65f, 8000f, false, SkillshotType.SkillshotLine);
+            Spells.QE.SetSkillshot(0.900f, 70f, 2100f, false, SkillshotType.SkillshotCircle);
 
 
             Spells.IgniteSlot = ObjectManager.Player.GetSpellSlot("SummonerDot");
