@@ -24,7 +24,7 @@ namespace ToasterLord
         private Notification notificationRemaining = null;
         private long ms = -1;
         private DrawingDraw drawingEvent = null;
-        private int delay = 99999;
+        private int delay = 420;
 
         public ToasterLord()
         {
