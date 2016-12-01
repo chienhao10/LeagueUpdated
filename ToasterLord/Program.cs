@@ -90,7 +90,7 @@ namespace ToasterLord
             Drawing.DrawText(10, 30, Color.White, "Updated by LordZEDith");
 
 
-            Drawing.DrawText(10, 100, Color.White, "How Much time Loded?");
+            Drawing.DrawText(10, 100, Color.White, "How many Times Loded?");
 
             _xSprite.Begin();
             _xSprite.Draw(_xTexture, new ColorBGRA(255, 255, 255, 255), null, null, new Vector3(10, 120, 0));
