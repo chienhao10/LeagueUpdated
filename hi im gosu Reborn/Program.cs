@@ -21,32 +21,35 @@ namespace hi_im_gosu_Reborn
         public static Vector3 TumblePosition = Vector3.Zero;
 
 
-        private static Orbwalking.Orbwalker orbwalker;
+        public static Orbwalking.Orbwalker orbwalker;
 
-        private static Menu menu;
 
-        private static Dictionary<string, SpellSlot> spellData;
-        
-        private static Obj_AI_Hero tar;
+        public static Menu menu;
+
+        public static Dictionary<string, SpellSlot> spellData;
+
+        public static Obj_AI_Hero tar;
         public const string ChampName = "Vayne";
         public static Obj_AI_Hero Player;
-        private static BuffType[] buffs;
-        private static Spell cleanse;
-        private static Menu Itemsmenu;
-        private static Menu qmenu;
-        private static Menu emenu;
-        private static Menu rmenu;
-        private static Menu botrk;
-        private static Menu qss;
+        public static BuffType[] buffs;
+        public static Spell cleanse;
+        public static Menu Itemsmenu;
+        public static Menu qmenu;
+        public static Menu emenu;
+        public static Menu gmenu;
+        public static Menu imenu;
+        public static Menu rmenu;
+        public static Menu botrk;
+        public static Menu qss;
 
         /* Asuna VayneHunter Copypasta */
-        private static readonly Vector2 MidPos = new Vector2(6707.485f, 8802.744f);
+        public static readonly Vector2 MidPos = new Vector2(6707.485f, 8802.744f);
 
-        private static readonly Vector2 DragPos = new Vector2(11514, 4462);
+        public static readonly Vector2 DragPos = new Vector2(11514, 4462);
 
-        private static float LastMoveC;
+        public static float LastMoveC;
 
-        private static void TumbleHandler()
+        public static void TumbleHandler()
         {
             if (Player.Distance(MidPos) >= Player.Distance(DragPos))
             {
@@ -76,7 +79,7 @@ namespace hi_im_gosu_Reborn
             }
         }
 
-        private static void MoveToLimited(Vector3 where)
+        public static void MoveToLimited(Vector3 where)
         {
             if (Environment.TickCount - LastMoveC < 80)
             {
@@ -89,11 +92,12 @@ namespace hi_im_gosu_Reborn
 
         /* End Asuna VayneHunter Copypasta */
 
-       public static void Main(string[] args)
+        public static void Main(string[] args)
         {
             try
             {
                 CustomEvents.Game.OnGameLoad += Game_OnGameLoad;
+
             }
             catch (Exception e)
             {
@@ -101,7 +105,32 @@ namespace hi_im_gosu_Reborn
                 return;
             }
         }
+        /*public static void DrawingOnOnDraw(EventArgs args)
+        {
+            // if vayne got Q ready
+            if (Q.IsReady())
+            {
+                var s = ObjectManager.Player.Position;
+                var e = s.Extend(Game.CursorPos, Q.Range);
+                DrawPointer(s, e, Q.Range);
+            }
+        }*/
 
+       /* public static void DrawPointer(Vector3 start, Vector3 end, float len)
+        {
+            var line = new Geometry.Polygon.Line(start, end, len);
+
+            var endNext = end.Extend(new Vector3(1, 0, 0), 100).To2D()
+                .RotateAroundPoint(start.To2D(), 90 * (float)Math.PI / 180);
+            var endNext2 = end.Extend(new Vector3(1, 0, 0), 100).To2D()
+                .RotateAroundPoint(start.To2D(), -90 * (float)Math.PI / 180);
+            var line2 = new Geometry.Polygon.Line(end.To2D(), endNext, 50);
+            var line3 = new Geometry.Polygon.Line(end.To2D(), endNext2, 50);
+
+            line2.Draw(System.Drawing.Color.Crimson);
+            line3.Draw(System.Drawing.Color.Crimson);
+            line.Draw(System.Drawing.Color.Crimson);
+        }*/
         public static void Game_OnGameLoad(EventArgs args)
         {
             Player = ObjectManager.Player;
@@ -129,6 +158,7 @@ namespace hi_im_gosu_Reborn
             qmenu.AddItem(new MenuItem("UseQJ", "Use Q Farm").SetValue(true));
             qmenu.AddItem(new MenuItem("Junglemana", "Minimum Mana to Use Q Farm").SetValue(new Slider(60, 1, 100)));
             qmenu.AddItem(new MenuItem("AntiMQ", "Use Anti - Melee [Q]").SetValue(true));
+            qmenu.AddItem(new MenuItem("DrawQ", "Draw Q Arrow").SetValue(true));
 
             emenu = menu.AddSubMenu(new Menu("Condemn", "Condemn"));
             emenu.AddItem(new MenuItem("UseEC", "Use E Combo").SetValue(true));
@@ -136,15 +166,37 @@ namespace hi_im_gosu_Reborn
             emenu.AddItem(
                 new MenuItem("UseET", "Use E (Toggle)").SetValue(new KeyBind("T".ToCharArray()[0], KeyBindType.Toggle)));
 
-            emenu.AddItem(new MenuItem("Int_E", "Use E To Interrupt").SetValue(true));
-            emenu.AddItem(new MenuItem("Gap_E", "Use E To Gabcloser").SetValue(true));
+           
+            //emenu.AddItem(new MenuItem("Gap_E", "Use E To Gabcloser").SetValue(true));
+            // emenu.AddItem(new MenuItem("GapD", "Anti GapCloser Delay").SetValue(new Slider(0, 0, 1000)).SetTooltip("Sets a delay before the Condemn for Antigapcloser is casted."));
             emenu.AddItem(new MenuItem("PushDistance", "E Push Distance").SetValue(new Slider(415, 475, 300)));
             emenu.AddItem(
                 new MenuItem("UseEaa", "Use E after auto").SetValue(
                     new KeyBind("G".ToCharArray()[0], KeyBindType.Toggle)));
+
+
+
             rmenu = menu.AddSubMenu(new Menu("Ult", "Ult"));
             rmenu.AddItem(new MenuItem("visibleR", "Smart Invisible R").SetValue(true).SetTooltip("Wether you want to set a delay to stay in R before you Q"));
             rmenu.AddItem(new MenuItem("Qtime", "Duration to wait").SetValue(new Slider(700, 0, 1000)));
+
+            imenu = menu.AddSubMenu(new Menu("Interrupt Settings", "Interrupt Settings"));
+            imenu.AddItem(new MenuItem("Int_E", "Use E To Interrupt").SetValue(true));
+            imenu.AddItem(new MenuItem("Interrupt", "Interrupt Danger Spells", true).SetValue(true));
+            imenu.AddItem(new MenuItem("AntiAlistar", "Interrupt Alistar W", true).SetValue(true));
+            imenu.AddItem(new MenuItem("AntiRengar", "Interrupt Rengar Jump", true).SetValue(true));
+            imenu.AddItem(new MenuItem("AntiKhazix", "Interrupt Khazix R", true).SetValue(true));
+
+
+            gmenu = menu.AddSubMenu(new Menu("Gap Closer", "Gap Closer"));
+            gmenu.AddItem(new MenuItem("Gapcloser", "Anti Gapcloser", true).SetValue(false));
+            foreach (var target in HeroManager.Enemies)
+            {
+                gmenu.AddItem(
+                    new MenuItem("AntiGapcloser" + target.ChampionName.ToLower(), target.ChampionName, true)
+                        .SetValue(false));
+            }
+
 
             menu.AddItem(new MenuItem("walltumble", "Wall Tumble"))
                 .SetValue(new KeyBind("U".ToCharArray()[0], KeyBindType.Press));
@@ -185,7 +237,7 @@ namespace hi_im_gosu_Reborn
             Q = new Spell(SpellSlot.Q, 0f);
             R = new Spell(SpellSlot.R, float.MaxValue);
             E = new Spell(SpellSlot.E, float.MaxValue);
-            
+
             var cde = ObjectManager.Player.Spellbook.GetSpell(ObjectManager.Player.GetSpellSlot("SummonerBoost"));
             if (cde != null)
             {
@@ -201,33 +253,72 @@ namespace hi_im_gosu_Reborn
             Orbwalking.AfterAttack += Orbwalking_AfterAttack;
             AntiGapcloser.OnEnemyGapcloser += AntiGapcloser_OnEnemyGapcloser;
             Interrupter2.OnInterruptableTarget += Interrupter2_OnInterruptableTarget;
+            GameObject.OnCreate += OnCreate;
+            //  Drawing.OnDraw += DrawingOnOnDraw;
+
 
             //Game.PrintChat("<font color='#881df2'>Blm95 Vayne Reborn by LordZEDith</font> Loaded.");
             Game.PrintChat("<font size='30'>hi_im_gosu Reborn</font> <font color='#b756c5'>by LordZEDith</font>");
             Game.PrintChat(
                 "<font color='#f2f21d'>Do you like it???  </font> <font color='#ff1900'>Drop 1 Upvote in Database </font>");
-          //  Game.PrintChat(
-              //  "<font color='#f2f21d'>Buy me cigars </font> <font color='#ff1900'>ssssssssssmith@hotmail.com</font> (10) S");
+            //  Game.PrintChat(
+            //  "<font color='#f2f21d'>Buy me cigars </font> <font color='#ff1900'>ssssssssssmith@hotmail.com</font> (10) S");
             menu.AddToMainMenu();
         }
 
-       
 
-        private static void AntiGapcloser_OnEnemyGapcloser(ActiveGapcloser gapcloser)
+
+        public static void AntiGapcloser_OnEnemyGapcloser(ActiveGapcloser gapcloser)
         {
-            if (E.IsReady() && gapcloser.Sender.IsValidTarget(200) && emenu.Item("Gap_E").GetValue<bool>())
+            if (E.IsReady())
             {
-                E.Cast(gapcloser.Sender);
+                if (imenu.Item("AntiAlistar", true).GetValue<bool>() && gapcloser.Sender.ChampionName == "Alistar" &&
+                    gapcloser.SkillType == GapcloserType.Targeted)
+                {
+                    E.Cast(gapcloser.Sender, true);
+
+                    if (gmenu.Item("Gapcloser", true).GetValue<bool>() &&
+                        gmenu.Item("AntiGapcloser" + gapcloser.Sender.ChampionName.ToLower(), true).GetValue<bool>())
+                    {
+                        if (gapcloser.Sender.DistanceToPlayer() <= 200 && gapcloser.Sender.IsValid)
+                        {
+                            E.CastOnUnit(gapcloser.Sender, true);
+                        }
+                    }
+                }
+            }
+        }
+        public static void OnCreate(GameObject sender, EventArgs Args)
+        {
+            var Rengar = HeroManager.Enemies.Find(heros => heros.ChampionName.Equals("Rengar"));
+            var Khazix = HeroManager.Enemies.Find(heros => heros.ChampionName.Equals("Khazix"));
+
+            if (Rengar != null && imenu.Item("AntiRengar", true).GetValue<bool>())
+            {
+                if (sender.Name == "Rengar_LeapSound.troy" && sender.Position.Distance(ObjectManager.Player.Position) < E.Range)
+                {
+                    E.CastOnUnit(Rengar);
+                }
+            }
+
+            if (Khazix != null && imenu.Item("AntiKhazix", true).GetValue<bool>())
+            {
+                if (sender.Name == "Khazix_Base_E_Tar.troy" && sender.Position.Distance(ObjectManager.Player.Position) <= 300)
+                {
+                    E.CastOnUnit(Khazix);
+                }
             }
         }
 
-        private static void Interrupter2_OnInterruptableTarget(
-            Obj_AI_Hero unit,
-            Interrupter2.InterruptableTargetEventArgs args)
+        public static void Interrupter2_OnInterruptableTarget(Obj_AI_Hero unit, Interrupter2.InterruptableTargetEventArgs args)
         {
-            if (E.IsReady() && unit.IsValidTarget(550) && emenu.Item("Int_E").GetValue<bool>())
+            if (imenu.Item("Int_E", true).GetValue<bool>() && E.IsReady() && unit.IsEnemy &&
+                unit.IsValidTarget(E.Range))
             {
-                E.Cast(unit);
+                if (args.DangerLevel >= Interrupter2.DangerLevel.High)
+                {
+                    E.CastOnUnit(unit, true);
+                }
             }
         }
 
@@ -260,7 +351,7 @@ namespace hi_im_gosu_Reborn
                                                 Q.Cast(ObjectManager.Player.Position.Extend(hero.Position, -Q.Range));
         }
 
-        private static void Usepotion()
+        public static void Usepotion()
         {
             var iusehppotion = menu.Item("usehppotions").GetValue<bool>();
             var iusepotionhp = Player.Health
@@ -334,32 +425,32 @@ namespace hi_im_gosu_Reborn
             }
         }
 
-       /* private static void Farm()
-        {
-            var mob =
-                MinionManager.GetMinions(
-                    Player.ServerPosition,
-                    E.Range,
-                    MinionTypes.All,
-                    MinionTeam.Neutral,
-                    MinionOrderTypes.MaxHealth).FirstOrDefault();
-            var Minions = MinionManager.GetMinions(Player.Position.Extend(Game.CursorPos, Q.Range), Player.AttackRange, MinionTypes.All);
-            var useQ = qmenu.Item("UseQJ").GetValue<bool>();
-          
-            int countMinions = 0;
-            foreach (var minions in Minions.Where(minion => minion.Health < Player.GetAutoAttackDamage(minion) || minion.Health < Q.GetDamage(minion)))
-            {
-                countMinions++;
-            }
+        /* public static void Farm()
+         {
+             var mob =
+                 MinionManager.GetMinions(
+                     Player.ServerPosition,
+                     E.Range,
+                     MinionTypes.All,
+                     MinionTeam.Neutral,
+                     MinionOrderTypes.MaxHealth).FirstOrDefault();
+             var Minions = MinionManager.GetMinions(Player.Position.Extend(Game.CursorPos, Q.Range), Player.AttackRange, MinionTypes.All);
+             var useQ = qmenu.Item("UseQJ").GetValue<bool>();
 
-            if (countMinions >= 2 && useQ && Q.IsReady() && Minions != null)
-                Q.Cast(Player.Position.Extend(Game.CursorPos, Q.Range/2));
-          
-            if (useQ && Q.IsReady() && Orbwalking.InAutoAttackRange(mob) && mob != null)
-            {
-                Q.Cast(Game.CursorPos);
-            }
-        }*/
+             int countMinions = 0;
+             foreach (var minions in Minions.Where(minion => minion.Health < Player.GetAutoAttackDamage(minion) || minion.Health < Q.GetDamage(minion)))
+             {
+                 countMinions++;
+             }
+
+             if (countMinions >= 2 && useQ && Q.IsReady() && Minions != null)
+                 Q.Cast(Player.Position.Extend(Game.CursorPos, Q.Range/2));
+
+             if (useQ && Q.IsReady() && Orbwalking.InAutoAttackRange(mob) && mob != null)
+             {
+                 Q.Cast(Game.CursorPos);
+             }
+         }*/
 
 
         public static void Orbwalking_AfterAttack(AttackableUnit unit, AttackableUnit target)
@@ -478,7 +569,7 @@ namespace hi_im_gosu_Reborn
                 //Q.Cast(Game.CursorPos);
             }
         }
-        private static void Orbwalking_BeforeAttack(Orbwalking.BeforeAttackEventArgs args)
+        public static void Orbwalking_BeforeAttack(Orbwalking.BeforeAttackEventArgs args)
         {
             if (args.Unit.IsMe)
             {
@@ -516,7 +607,7 @@ namespace hi_im_gosu_Reborn
             }
 
             Usepotion();
-            
+
             if (menu.Item("walltumble").GetValue<KeyBind>().Active)
             {
                 TumbleHandler();
@@ -549,6 +640,7 @@ namespace hi_im_gosu_Reborn
                 }
             }
 
+
             if (!E.IsReady()) return; //||
             //(orbwalker.ActiveMode.ToString() != "Combo" || !menu.Item("UseEC").GetValue<bool>()) &&
             //!menu.Item("UseET").GetValue<KeyBind>().Active)) return;
@@ -573,3 +665,4 @@ namespace hi_im_gosu_Reborn
         }
     }
 }
+
