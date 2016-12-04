@@ -664,27 +664,25 @@ namespace hi_im_gosu_Reborn
             }
 
 
-            if (!E.IsReady()) return; //||
+           if (!E.IsReady()) return; //||
             //(orbwalker.ActiveMode.ToString() != "Combo" || !menu.Item("UseEC").GetValue<bool>()) &&
             //!menu.Item("UseET").GetValue<KeyBind>().Active)) return;
             if ((orbwalker.ActiveMode.ToString() == "Combo" && emenu.Item("UseEC").GetValue<bool>()) || (orbwalker.ActiveMode.ToString() == "Mixed" && emenu.Item("he").GetValue<bool>()) || emenu.Item("UseET").GetValue<KeyBind>().Active)
-                foreach (var hero in from hero in ObjectManager.Get<Obj_AI_Hero>().Where(hero => hero.IsValidTarget(550f))
-                                     let prediction = E.GetPrediction(hero)
-                                     where NavMesh.GetCollisionFlags(
-                                         prediction.UnitPosition.To2D()
-                                             .Extend(ObjectManager.Player.ServerPosition.To2D(),
-                                                 -emenu.Item("PushDistance").GetValue<Slider>().Value)
-                                             .To3D())
-                                         .HasFlag(CollisionFlags.Wall) || NavMesh.GetCollisionFlags(
-                                             prediction.UnitPosition.To2D()
-                                                 .Extend(ObjectManager.Player.ServerPosition.To2D(),
-                                                     -(emenu.Item("PushDistance").GetValue<Slider>().Value / 2))
-                                                 .To3D())
-                                             .HasFlag(CollisionFlags.Wall)
-                                     select hero)
-                {
-                    E.Cast(hero);
+            {
+                var enemy = TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Physical);
+             
+                for (int i = 1; i < emenu.Item("PushDistance").GetValue<Slider>().Value; i += (int)enemy.BoundingRadius)
+                { 
+                    if (NavMesh.GetCollisionFlags(E.GetPrediction(enemy).UnitPosition.Extend(ObjectManager.Player.Position, -i)).
+                        HasFlag(CollisionFlags.Wall) || NavMesh.GetCollisionFlags(E.GetPrediction(enemy).UnitPosition.Extend(ObjectManager.Player.Position, -i)).
+                        HasFlag(CollisionFlags.Building) || ObjectManager.Get<Obj_AI_Base>().Any(f => f.Distance(E.GetPrediction(enemy).UnitPosition.Extend(ObjectManager.Player.Position, 
+                        -emenu.Item("PushDistance").GetValue<Slider>().Value)) <= enemy.BoundingRadius && f.Name.ToLower() == "beacon"))
+                    {
+                        E.CastOnUnit(enemy);
+                        return;
+                    }
                 }
+            }
         }
     }
 }
