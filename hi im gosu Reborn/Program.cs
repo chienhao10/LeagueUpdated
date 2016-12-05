@@ -346,7 +346,7 @@ namespace hi_im_gosu_Reborn
 
             if (Rengar != null && imenu.Item("AntiRengar", true).GetValue<bool>())
             {
-                if (sender.Name == "Rengar_LeapSound.troy" && sender.Position.Distance(ObjectManager.Player.Position) < E.Range)
+                if (sender.Name == "Rengar_LeapSound.troy" && sender.Position.Distance(ObjectManager.Player.Position) < 615)
                 {
                     E.CastOnUnit(Rengar);
                 }
@@ -364,7 +364,7 @@ namespace hi_im_gosu_Reborn
         public static void Interrupter2_OnInterruptableTarget(Obj_AI_Hero unit, Interrupter2.InterruptableTargetEventArgs args)
         {
             if (imenu.Item("Int_E", true).GetValue<bool>() && E.IsReady() && unit.IsEnemy &&
-                unit.IsValidTarget(E.Range))
+                unit.IsValidTarget(615))
             {
                 if (args.DangerLevel >= Interrupter2.DangerLevel.High)
                 {
@@ -515,7 +515,7 @@ namespace hi_im_gosu_Reborn
                 var mob =
                     MinionManager.GetMinions(
                         Player.ServerPosition,
-                        E.Range,
+                        615,
                         MinionTypes.All,
                         MinionTeam.Neutral,
                         MinionOrderTypes.MaxHealth).FirstOrDefault();
@@ -747,7 +747,7 @@ namespace hi_im_gosu_Reborn
                         break;
                     case 2:
                         {
-                            var target = TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Physical);
+                            var target = TargetSelector.GetTarget(615, TargetSelector.DamageType.Physical);
                             var EPred = E.GetPrediction(target);
                             var PD = emenu.Item("PushDistance").GetValue<Slider>().Value;
                             var PP = EPred.UnitPosition.Extend(ObjectManager.Player.Position, -PD);
@@ -761,7 +761,7 @@ namespace hi_im_gosu_Reborn
 
                                 if (CF.HasFlag(CollisionFlags.Wall) || CF.HasFlag(CollisionFlags.Building) || J4)
                                 {
-                                    if (CheckTarget(target, E.Range))
+                                    if (CheckTarget(target, 615))
                                     {
                                         E.CastOnUnit(target);
                                         return;
@@ -772,7 +772,7 @@ namespace hi_im_gosu_Reborn
                         break;
                     case 3:
                         {
-                            var target = TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Physical);
+                            var target = TargetSelector.GetTarget(615, TargetSelector.DamageType.Physical);
                             var pushDistance = emenu.Item("PushDistance").GetValue<Slider>().Value;
                             var Prediction = E.GetPrediction(target);
                             var endPosition = Prediction.UnitPosition.Extend
@@ -792,7 +792,7 @@ namespace hi_im_gosu_Reborn
                                                     .HasFlag(CollisionFlags.Wall)) >=
                                         condemnRectangle.Points.Count * (20 / 100f))
                                     {
-                                        if (CheckTarget(target, E.Range))
+                                        if (CheckTarget(target, 615))
                                         {
                                             E.CastOnUnit(target);
                                         }
@@ -817,7 +817,7 @@ namespace hi_im_gosu_Reborn
                                                             .HasFlag(CollisionFlags.Wall)) >=
                                                 condemnRectangle.Points.Count * (20 / 100f))
                                             {
-                                                if (CheckTarget(target, E.Range))
+                                                if (CheckTarget(target, 615))
                                                 {
                                                     E.CastOnUnit(target);
                                                 }
@@ -832,15 +832,15 @@ namespace hi_im_gosu_Reborn
 
                     case 4:
                         {
-                            var target = TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Physical);
+                            var target = TargetSelector.GetTarget(615, TargetSelector.DamageType.Physical);
                             for (var i = 1; i < 8; i++)
                             {
                                 var targetBehind = target.Position +
                                                    Vector3.Normalize(target.ServerPosition - ObjectManager.Player.Position) * i * 50;
 
-                                if (targetBehind.IsWall() && target.IsValidTarget(E.Range))
+                                if (targetBehind.IsWall() && target.IsValidTarget(615))
                                 {
-                                    if (CheckTarget(target, E.Range))
+                                    if (CheckTarget(target, 615))
                                     {
                                         E.CastOnUnit(target);
                                         return;
@@ -851,7 +851,7 @@ namespace hi_im_gosu_Reborn
                         break;
                     case 5:
                         {
-                            var target = TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Physical);
+                            var target = TargetSelector.GetTarget(615, TargetSelector.DamageType.Physical);
                             var prediction = E.GetPrediction(target);
 
                             if (prediction.Hitchance >= HitChance.High)
@@ -870,7 +870,7 @@ namespace hi_im_gosu_Reborn
 
                                     if (loc3.IsWall())
                                     {
-                                        if (CheckTarget(target, E.Range))
+                                        if (CheckTarget(target, 615))
                                         {
                                             E.CastOnUnit(target);
                                             return;
@@ -882,7 +882,7 @@ namespace hi_im_gosu_Reborn
                         break;
                     case 6:
                         {
-                            var target = TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Physical);
+                            var target = TargetSelector.GetTarget(615, TargetSelector.DamageType.Physical);
                             var prepos = E.GetPrediction(target);
                             float pushDistance = 470;
                             var radius = 250;
@@ -905,7 +905,7 @@ namespace hi_im_gosu_Reborn
 
                                 if (pr.IsWall() && pl.IsWall())
                                 {
-                                    if (CheckTarget(target, E.Range))
+                                    if (CheckTarget(target, 615))
                                     {
                                         E.CastOnUnit(target);
                                         return;
