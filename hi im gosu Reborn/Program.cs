@@ -686,8 +686,9 @@ namespace hi_im_gosu_Reborn
                 {
                     E.CastOnUnit(hero);
                 }
-                }
+                
             }
+            
         }
     }
 }
