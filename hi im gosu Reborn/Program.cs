@@ -16,7 +16,10 @@ namespace hi_im_gosu_Reborn
     {
         public static Spell E;
         public static Spell Q;
+        public static Spell W;
         public static Spell R;
+
+       
 
 
         public static Vector3 TumblePosition = Vector3.Zero;
@@ -24,7 +27,7 @@ namespace hi_im_gosu_Reborn
 
         public static SebbyLib.Orbwalking.Orbwalker orbwalker;
 
-        private static string News = "Added 7 Condemns Method's";
+        private static string News = "Added New Condemn Method and ZZRot Beta";
 
         public static Menu menu;
 
@@ -181,6 +184,12 @@ namespace hi_im_gosu_Reborn
          }*/
         public static void Game_OnGameLoad(EventArgs args)
         {
+            Q = new Spell(SpellSlot.Q, 300f);
+            W = new Spell(SpellSlot.W);
+            E = new Spell(SpellSlot.E, 550f);
+            E.SetTargetted(0.25f, 1600f);
+            R = new Spell(SpellSlot.R);
+
             Player = ObjectManager.Player;
             //Utils.PrintMessage("Vayne loaded");
             if (Player.ChampionName != ChampName) return;
@@ -219,7 +228,7 @@ namespace hi_im_gosu_Reborn
 
             //emenu.AddItem(new MenuItem("Gap_E", "Use E To Gabcloser").SetValue(true));
             // emenu.AddItem(new MenuItem("GapD", "Anti GapCloser Delay").SetValue(new Slider(0, 0, 1000)).SetTooltip("Sets a delay before the Condemn for Antigapcloser is casted."));
-            emenu.AddItem(new MenuItem("EMode", "Use E Mode:", true).SetValue(new StringList(new[] { "Lord's", "Gosu", "Flowers", "VHR", "Marksman", "Sharpshooter", "OKTW" })));
+            emenu.AddItem(new MenuItem("EMode", "Use E Mode:", true).SetValue(new StringList(new[] { "Lord's", "Gosu", "Flowers", "VHR", "Marksman", "Sharpshooter", "OKTW", "Shine" })));
             emenu.AddItem(new MenuItem("PushDistance", "E Push Distance").SetValue(new Slider(415, 475, 300)));
             emenu.AddItem(
                 new MenuItem("UseEaa", "Use E after auto").SetValue(
@@ -921,8 +930,29 @@ namespace hi_im_gosu_Reborn
                             }
                         }
                         break;
+                    case 7:
+                        foreach (var target in HeroManager.Enemies.Where(h => h.IsValidTarget(E.Range)))
+                        {
+                          
+                                var pushDistance = emenu.Item("PushDistance").GetValue<Slider>().Value; 
+                                var targetPosition = E.GetPrediction(target).UnitPosition;
+                                var pushDirection = (targetPosition - ObjectManager.Player.ServerPosition).Normalized();
+                                float checkDistance = pushDistance / 40f;
+                                for (int i = 0; i < 40; i++)
+                                {
+                                    Vector3 finalPosition = targetPosition + (pushDirection * checkDistance * i);
+                                    var collFlags = NavMesh.GetCollisionFlags(finalPosition);
+                                    if (collFlags.HasFlag(CollisionFlags.Wall) || collFlags.HasFlag(CollisionFlags.Building)) //not sure about building, I think its turrets, nexus etc
+                                    {
+                                        E.CastOnUnit(target);
+                                    }
+                                }
+                            
 
- 
+                        }
+                        break;
+
+
                 }
             }
         }
