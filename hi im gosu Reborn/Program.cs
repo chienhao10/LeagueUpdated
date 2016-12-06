@@ -29,6 +29,7 @@ namespace hi_im_gosu_Reborn
         public static Menu menu;
 
         public static Dictionary<string, SpellSlot> spellData;
+        public static  Items.Item zzrot = new Items.Item(3512, 400);
 
         public static Obj_AI_Hero tar;
         public const string ChampName = "Vayne";
@@ -213,6 +214,7 @@ namespace hi_im_gosu_Reborn
             emenu.AddItem(new MenuItem("UseEC", "Use E Combo").SetValue(true));
             emenu.AddItem(new MenuItem("he", "Use E Harass").SetValue(true));
             emenu.AddItem(new MenuItem("UseET", "Use E (Toggle)").SetValue(new KeyBind("T".ToCharArray()[0], KeyBindType.Toggle)));
+            emenu.AddItem(new MenuItem("zzrot", "[Beta] ZZrot Condemn").SetValue(new KeyBind("I".ToCharArray()[0], KeyBindType.Toggle)));
 
 
             //emenu.AddItem(new MenuItem("Gap_E", "Use E To Gabcloser").SetValue(true));
@@ -557,8 +559,13 @@ namespace hi_im_gosu_Reborn
                     Q.Cast(Game.CursorPos);
 
                 }
+               
 
-                SebbyLib.Orbwalking.Orbwalk(TargetSelector.GetTarget(625, TargetSelector.DamageType.Physical), Game.CursorPos);
+                    SebbyLib.Orbwalking.Orbwalk(TargetSelector.GetTarget(625, TargetSelector.DamageType.Physical), Game.CursorPos);
+            }
+            if (menu.Item("zzrot").GetValue<KeyBind>().Active)
+            {
+                Condemn.RotE();
             }
 
             if (qmenu.Item("FastQ").GetValue<KeyBind>().Active)
@@ -711,8 +718,7 @@ namespace hi_im_gosu_Reborn
                     }
                 }
             }
-
-
+           
             //||
             //(orbwalker.ActiveMode.ToString() != "Combo" || !menu.Item("UseEC").GetValue<bool>()) &&
             //!menu.Item("UseET").GetValue<KeyBind>().Active)) return;
