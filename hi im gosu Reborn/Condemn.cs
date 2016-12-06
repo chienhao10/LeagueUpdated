@@ -10,6 +10,17 @@ namespace hi_im_gosu_Reborn
 {
     class Condemn
     {
+        public static void RotE()
+        {
+            var target = TargetSelector.GetTarget(Vayne.zzrot.Range, TargetSelector.DamageType.Physical);
+            if ( Vayne.E.IsReady() && Vayne.zzrot.IsInRange(target) && Vayne.zzrot.IsReady() && target != null)
+            {
+                if (Vayne.zzrot.Cast(target.ServerPosition.To2D()))
+                {
+                   Vayne.E.CastOnUnit(target);
+                }
+            }
+        }
         public static void Run()
             {
             foreach (var enemy in HeroManager.Enemies.Where(x =>x.IsValidTarget(Vayne.E.Range) && !x.HasBuffOfType(BuffType.SpellShield) && !x.HasBuffOfType(BuffType.SpellImmunity) && Condemn.canBeCondemned(x)))
