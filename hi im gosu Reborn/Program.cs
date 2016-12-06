@@ -19,7 +19,7 @@ namespace hi_im_gosu_Reborn
         public static Spell W;
         public static Spell R;
 
-       
+
 
 
         public static Vector3 TumblePosition = Vector3.Zero;
@@ -32,7 +32,7 @@ namespace hi_im_gosu_Reborn
         public static Menu menu;
 
         public static Dictionary<string, SpellSlot> spellData;
-        public static  Items.Item zzrot = new Items.Item(3512, 400);
+        public static Items.Item zzrot = new Items.Item(3512, 400);
 
         public static Obj_AI_Hero tar;
         public const string ChampName = "Vayne";
@@ -100,35 +100,7 @@ namespace hi_im_gosu_Reborn
 
             return !target.HasBuff("FioraW");
         }
-        public static void TumbleHandler()
-        {
-            if (Player.Distance(MidPos) >= Player.Distance(DragPos))
-            {
-                if (Player.Position.X < 12000 || Player.Position.X > 12070 || Player.Position.Y < 4800 ||
-                Player.Position.Y > 4872)
-                {
-                    MoveToLimited(new Vector2(12050, 4827).To3D());
-                }
-                else
-                {
-                    MoveToLimited(new Vector2(12050, 4827).To3D());
-                    Q.Cast(DragPos, true);
-                }
-            }
-            else
-            {
-                if (Player.Position.X < 6908 || Player.Position.X > 6978 || Player.Position.Y < 8917 ||
-                Player.Position.Y > 8989)
-                {
-                    MoveToLimited(new Vector2(6958, 8944).To3D());
-                }
-                else
-                {
-                    MoveToLimited(new Vector2(6958, 8944).To3D());
-                    Q.Cast(MidPos, true);
-                }
-            }
-        }
+
 
         public static void MoveToLimited(Vector3 where)
         {
@@ -209,13 +181,16 @@ namespace hi_im_gosu_Reborn
                 new MenuItem("aaqaa", "Auto -> Q -> AA").SetValue(new KeyBind("X".ToCharArray()[0], KeyBindType.Press)));
 
             qmenu = menu.AddSubMenu(new Menu("Tumble", "Tumble"));
+            emenu.AddItem(new MenuItem("QMode", "Use Q Mode:", true).SetValue(new StringList(new[] {"Gosu", "Prada"  })));
             qmenu.AddItem(new MenuItem("UseQC", "Use Q Combo").SetValue(true));
             qmenu.AddItem(new MenuItem("hq", "Use Q Harass").SetValue(true));
             qmenu.AddItem(new MenuItem("restrictq", "Restrict Q usage?").SetValue(true));
             qmenu.AddItem(new MenuItem("UseQJ", "Use Q Farm").SetValue(true));
             qmenu.AddItem(new MenuItem("Junglemana", "Minimum Mana to Use Q Farm").SetValue(new Slider(60, 1, 100)));
+            qmenu.AddItem(new MenuItem("QCheck", "Use Q|Safe Check?", true).SetValue(true));
+            qmenu.AddItem(new MenuItem("QTurret", "Use Q|Dont Cast To Turret", true).SetValue(true));
             qmenu.AddItem(new MenuItem("AntiMQ", "Use Anti - Melee [Q]").SetValue(true));
-            qmenu.AddItem(new MenuItem("FastQ", "Fast Q").SetValue(true).SetValue(new KeyBind("Q".ToCharArray()[0], KeyBindType.Press)));
+            // qmenu.AddItem(new MenuItem("FastQ", "Fast Q").SetValue(true).SetValue(new KeyBind("Q".ToCharArray()[0], KeyBindType.Press)));
             //qmenu.AddItem(new MenuItem("DrawQ", "Draw Q Arrow").SetValue(true));
 
 
@@ -223,13 +198,14 @@ namespace hi_im_gosu_Reborn
             emenu.AddItem(new MenuItem("UseEC", "Use E Combo").SetValue(true));
             emenu.AddItem(new MenuItem("he", "Use E Harass").SetValue(true));
             emenu.AddItem(new MenuItem("UseET", "Use E (Toggle)").SetValue(new KeyBind("T".ToCharArray()[0], KeyBindType.Toggle)));
-            emenu.AddItem(new MenuItem("zzrot", "[Beta] ZZrot Condemn").SetValue(new KeyBind("I".ToCharArray()[0], KeyBindType.Toggle))).Permashow(true, "Vayne | ZZRot Toggle", Color.Aqua); 
+            emenu.AddItem(new MenuItem("zzrot", "[Beta] ZZrot Condemn").SetValue(new KeyBind("I".ToCharArray()[0], KeyBindType.Toggle))).Permashow(true, "Vayne | ZZRot Toggle", Color.Aqua);
 
 
             //emenu.AddItem(new MenuItem("Gap_E", "Use E To Gabcloser").SetValue(true));
             // emenu.AddItem(new MenuItem("GapD", "Anti GapCloser Delay").SetValue(new Slider(0, 0, 1000)).SetTooltip("Sets a delay before the Condemn for Antigapcloser is casted."));
-            emenu.AddItem(new MenuItem("EMode", "Use E Mode:", true).SetValue(new StringList(new[] { "Lord's", "Gosu", "Flowers", "VHR", "Marksman", "Sharpshooter", "OKTW", "Shine" })));
+            emenu.AddItem(new MenuItem("EMode", "Use E Mode:", true).SetValue(new StringList(new[] { "Lord's", "Gosu", "Flowers", "VHR", "Marksman", "Sharpshooter", "OKTW", "Shine", "PRADASMART", "PRADAPERFECT", "OLDPRADA", "PRADALEGACY" })));
             emenu.AddItem(new MenuItem("PushDistance", "E Push Distance").SetValue(new Slider(415, 475, 300)));
+            emenu.AddItem(new MenuItem("EHitchance", "E Hitchance").SetValue(new Slider(50, 1, 100))).SetTooltip("Only For Prada Condemn Methods"); 
             emenu.AddItem(
                 new MenuItem("UseEaa", "Use E after auto").SetValue(
                     new KeyBind("G".ToCharArray()[0], KeyBindType.Toggle)));
@@ -258,8 +234,7 @@ namespace hi_im_gosu_Reborn
             }
 
 
-            menu.AddItem(new MenuItem("walltumble", "Wall Tumble"))
-                .SetValue(new KeyBind("U".ToCharArray()[0], KeyBindType.Press));
+
             menu.AddItem(new MenuItem("useR", "Use R Combo").SetValue(true));
             menu.AddItem(new MenuItem("enemys", "If Enemys Around >=").SetValue(new Slider(2, 1, 5)));
             Itemsmenu = menu.AddSubMenu(new Menu("Items", "Items"));
@@ -323,7 +298,7 @@ namespace hi_im_gosu_Reborn
             Game.PrintChat("<font size='30'>hi_im_gosu Reborn</font> <font color='#b756c5'>by LordZEDith</font>");
             Game.PrintChat("<font color='#b756c5'>NEWS: </font>" + News);
             //Game.PrintChat(
-               // "<font color='#f2f21d'>Do you like it???  </font> <font color='#ff1900'>Drop 1 Upvote in Database </font>");
+            // "<font color='#f2f21d'>Do you like it???  </font> <font color='#ff1900'>Drop 1 Upvote in Database </font>");
             //  Game.PrintChat(
             //  "<font color='#f2f21d'>Buy me cigars </font> <font color='#ff1900'>ssssssssssmith@hotmail.com</font> (10) S");
             menu.AddToMainMenu();
@@ -402,16 +377,18 @@ namespace hi_im_gosu_Reborn
                     Utility.DelayAction.Add(1000, () => cleanse.Cast());
                 }
             }
-            if (hero != null)
-                if (args.Target != null)
-                    if (args.Target.IsMe)
-                        if (hero.Type == GameObjectType.obj_AI_Hero)
-                            if (hero.IsEnemy)
-                                if (hero.IsMelee)
-                                    if (args.SData.IsAutoAttack())
-                                        if (qmenu.Item("AntiMQ").GetValue<bool>())
-                                            if (Q.IsReady())
-                                                Q.Cast(ObjectManager.Player.Position.Extend(hero.Position, -Q.Range));
+            if (hero == null || !hero.IsEnemy || !hero.IsMelee || hero.Type != ObjectManager.Player.Type || args.Target == null)
+            {
+                return;
+            }
+
+            if (args.Target.IsMe)
+            {
+                if (qmenu.Item("QMelee", true).GetValue<bool>() && Q.IsReady())
+                {
+                    Q.Cast(ObjectManager.Player.Position.Extend(hero.Position, -Q.Range));
+                }
+            }
 
         }
 
@@ -568,9 +545,9 @@ namespace hi_im_gosu_Reborn
                     Q.Cast(Game.CursorPos);
 
                 }
-               
 
-                    SebbyLib.Orbwalking.Orbwalk(TargetSelector.GetTarget(625, TargetSelector.DamageType.Physical), Game.CursorPos);
+
+                SebbyLib.Orbwalking.Orbwalk(TargetSelector.GetTarget(625, TargetSelector.DamageType.Physical), Game.CursorPos);
             }
             if (menu.Item("zzrot").GetValue<KeyBind>().Active)
             {
@@ -623,39 +600,146 @@ namespace hi_im_gosu_Reborn
                 emenu.Item("UseEaa").SetValue<KeyBind>(new KeyBind("G".ToCharArray()[0], KeyBindType.Toggle));
             }
 
-            if (Q.IsReady()
-                && ((orbwalker.ActiveMode.ToString() == "Combo" && qmenu.Item("UseQC").GetValue<bool>())
-                    || (orbwalker.ActiveMode.ToString() == "Mixed" && qmenu.Item("hq").GetValue<bool>())))
+            if (Q.IsReady() && ((orbwalker.ActiveMode.ToString() == "Combo" && qmenu.Item("UseQC").GetValue<bool>()) || (orbwalker.ActiveMode.ToString() == "Mixed" && qmenu.Item("hq").GetValue<bool>())))
             {
-                if (qmenu.Item("restrictq").GetValue<bool>())
+                switch (emenu.Item("QMode", true).GetValue<StringList>().SelectedIndex)
                 {
-                    var after = ObjectManager.Player.Position
-                                + Normalize(Game.CursorPos - ObjectManager.Player.Position) * 300;
-                    //Game.PrintChat("After: {0}", after);
-                    var disafter = Vector3.DistanceSquared(after, tar.Position);
-                    //Game.PrintChat("DisAfter: {0}", disafter);
-                    //Game.PrintChat("first calc: {0}", (disafter) - (630*630));
-                    if ((disafter < 630 * 630) && disafter > 150 * 150)
-                    {
-                        Q.Cast(Game.CursorPos);
+                    case 0:
+                        {
+                            if (qmenu.Item("restrictq").GetValue<bool>())
+                            {
+                                var after = ObjectManager.Player.Position
+                                            + Normalize(Game.CursorPos - ObjectManager.Player.Position) * 300;
+                                //Game.PrintChat("After: {0}", after);
+                                var disafter = Vector3.DistanceSquared(after, tar.Position);
+                                //Game.PrintChat("DisAfter: {0}", disafter);
+                                //Game.PrintChat("first calc: {0}", (disafter) - (630*630));
+                                if ((disafter < 630 * 630) && disafter > 150 * 150)
+                                {
+                                    Q.Cast(Game.CursorPos);
 
-                    }
+                                }
 
-                    if (Vector3.DistanceSquared(tar.Position, ObjectManager.Player.Position) > 630 * 630
-                        && disafter < 630 * 630)
-                    {
-                        Q.Cast(Game.CursorPos);
+                                if (Vector3.DistanceSquared(tar.Position, ObjectManager.Player.Position) > 630 * 630
+                                    && disafter < 630 * 630)
+                                {
+                                    Q.Cast(Game.CursorPos);
 
-                    }
+                                }
+                            }
+                            else
+                            {
+                                Q.Cast(Game.CursorPos);
+
+                            }
+                        }
+                        break;
+                    case 1:
+                        {
+                            if (!Q.IsReady()) return;
+                            if (unit.IsMe && target.IsValid<Obj_AI_Hero>())
+                            {
+                                if (qmenu.Item("UseQC", true).GetValue<bool>() && Q.IsReady())
+                                {
+                                    var tg = target as Obj_AI_Hero;
+                                    if (tg == null) return;
+                                    var tumblePosition = Game.CursorPos;
+                                    {
+                                        tumblePosition = tg.GetTumblePos();
+                                    }
+
+                                }
+                            }
+                            
+                              
                 }
-                else
-                {
-                    Q.Cast(Game.CursorPos);
+                        break;
+                    case 2:
+                        {
+                            var tar = TargetSelector.GetTarget(800, TargetSelector.DamageType.Physical);
+                            if (qmenu.Item("UseQC", true).GetValue<bool>() && Q.IsReady())
+                            {
+                                
 
+                                if (CheckTarget(tar, 800f))
+                                {
+
+                                    QLogic(tar);
+                                }
+                            }
+                        
                 }
-                //Q.Cast(Game.CursorPos);
+                break;
+                }
             }
         }
+
+        private static void QLogic(Obj_AI_Base target)
+        {
+
+            if (!Vayne.Q.IsReady())
+            {
+                return;
+            }
+
+            var qPosition = ObjectManager.Player.ServerPosition.Extend(Game.CursorPos, Vayne.Q.Range);
+            var targetDisQ = target.ServerPosition.Distance(qPosition);
+            var canQ = false;
+
+            if (Vayne.qmenu.Item("QTurret", true).GetValue<bool>() && qPosition.UnderTurret(true))
+            {
+                canQ = false;
+            }
+
+            if (Vayne.qmenu.Item("QCheck", true).GetValue<bool>())
+            {
+                if (qPosition.CountEnemiesInRange(300f) >= 3)
+                {
+                    canQ = false;
+                }
+
+                //Catilyn W
+                if (ObjectManager
+                        .Get<Obj_GeneralParticleEmitter>()
+                        .FirstOrDefault(
+                            x =>
+                                x != null && x.IsValid &&
+                                x.Name.ToLower().Contains("yordletrap_idle_red.troy") &&
+                                x.Position.Distance(qPosition) <= 100) != null)
+                {
+                    canQ = false;
+                }
+
+                //Jinx E
+                if (ObjectManager.Get<Obj_AI_Minion>()
+                        .FirstOrDefault(x => x.IsValid && x.IsEnemy && x.Name == "k" &&
+                                             x.Position.Distance(qPosition) <= 100) != null)
+                {
+                    canQ = false;
+                }
+
+                //Teemo R
+                if (ObjectManager.Get<Obj_AI_Minion>()
+                        .FirstOrDefault(x => x.IsValid && x.IsEnemy && x.Name == "Noxious Trap" &&
+                                             x.Position.Distance(qPosition) <= 100) != null)
+                {
+                    canQ = false;
+                }
+            }
+
+            if (targetDisQ >= Vayne.Q.Range && targetDisQ <= Vayne.Q.Range * 2)
+            {
+                canQ = true;
+            }
+
+            if (canQ)
+            {
+                Vayne.Q.Cast(qPosition, true);
+                canQ = false;
+            }
+        }
+    
+
         public static void Orbwalking_BeforeAttack(SebbyLib.Orbwalking.BeforeAttackEventArgs args)
         {
             if (args.Unit.IsMe)
@@ -696,10 +780,7 @@ namespace hi_im_gosu_Reborn
 
             Usepotion();
 
-            if (menu.Item("walltumble").GetValue<KeyBind>().Active)
-            {
-                TumbleHandler();
-            }
+
 
             if (menu.Item("aaqaa").GetValue<KeyBind>().Active)
             {
@@ -727,7 +808,7 @@ namespace hi_im_gosu_Reborn
                     }
                 }
             }
-           
+
             //||
             //(orbwalker.ActiveMode.ToString() != "Combo" || !menu.Item("UseEC").GetValue<bool>()) &&
             //!menu.Item("UseET").GetValue<KeyBind>().Active)) return;
@@ -933,34 +1014,189 @@ namespace hi_im_gosu_Reborn
                     case 7:
                         foreach (var target in HeroManager.Enemies.Where(h => h.IsValidTarget(E.Range)))
                         {
-                          
-                                var pushDistance = emenu.Item("PushDistance").GetValue<Slider>().Value; 
-                                var targetPosition = E.GetPrediction(target).UnitPosition;
-                                var pushDirection = (targetPosition - ObjectManager.Player.ServerPosition).Normalized();
-                                float checkDistance = pushDistance / 40f;
-                                for (int i = 0; i < 40; i++)
+
+                            var pushDistance = emenu.Item("PushDistance").GetValue<Slider>().Value;
+                            var targetPosition = E.GetPrediction(target).UnitPosition;
+                            var pushDirection = (targetPosition - ObjectManager.Player.ServerPosition).Normalized();
+                            float checkDistance = pushDistance / 40f;
+                            for (int i = 0; i < 40; i++)
+                            {
+                                Vector3 finalPosition = targetPosition + (pushDirection * checkDistance * i);
+                                var collFlags = NavMesh.GetCollisionFlags(finalPosition);
+                                if (collFlags.HasFlag(CollisionFlags.Wall) || collFlags.HasFlag(CollisionFlags.Building)) //not sure about building, I think its turrets, nexus etc
                                 {
-                                    Vector3 finalPosition = targetPosition + (pushDirection * checkDistance * i);
-                                    var collFlags = NavMesh.GetCollisionFlags(finalPosition);
-                                    if (collFlags.HasFlag(CollisionFlags.Wall) || collFlags.HasFlag(CollisionFlags.Building)) //not sure about building, I think its turrets, nexus etc
+                                    E.CastOnUnit(target);
+                                }
+                            }
+
+
+                        }
+                        break;
+                    case 8:
+                        {
+                            var target = TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Physical);
+                            var pP = Player.ServerPosition;
+                            var p = target.ServerPosition;
+                            var pD = Vayne.emenu.Item("PushDistance").GetValue<Slider>().Value;
+                            var mode = Vayne.emenu.Item("EMode", true).GetValue<StringList>().SelectedIndex;
+                            if ((p.Extend(pP, -pD).IsCollisionable() || p.Extend(pP, -pD / 2f).IsCollisionable() ||
+                 p.Extend(pP, -pD / 3f).IsCollisionable()))
+                            {
+                                if (!target.CanMove ||
+                                    (target.IsWindingUp))
+                                {
+                                    E.CastOnUnit(target);
+                                }
+
+                                var enemiesCount = ObjectManager.Player.CountEnemiesInRange(1200);
+                                if (enemiesCount > 1 && enemiesCount <= 3)
+                                {
+                                    var prediction = Vayne.E.GetPrediction(target);
+                                    for (var i = 15; i < pD; i += 75)
+                                    {
+                                        var posFlags = NavMesh.GetCollisionFlags(
+                                            prediction.UnitPosition.To2D()
+                                                .Extend(
+                                                    pP.To2D(),
+                                                    -i)
+                                                .To3D());
+                                        if (posFlags.HasFlag(CollisionFlags.Wall) || posFlags.HasFlag(CollisionFlags.Building))
+                                        {
+                                            E.CastOnUnit(target);
+                                        }
+
+                                        else
+                                        {
+                                            var hitchance = emenu.Item("EHitchance").GetValue<Slider>().Value;
+                                            var angle = 0.20 * hitchance;
+                                            const float travelDistance = 0.5f;
+                                            var alpha = new Vector2((float)(p.X + travelDistance * Math.Cos(Math.PI / 180 * angle)),
+                                                (float)(p.X + travelDistance * Math.Sin(Math.PI / 180 * angle)));
+                                            var beta = new Vector2((float)(p.X - travelDistance * Math.Cos(Math.PI / 180 * angle)),
+                                                (float)(p.X - travelDistance * Math.Sin(Math.PI / 180 * angle)));
+
+                                            for (var j = 15; j < pD; j += 100)
+                                            {
+                                                if (pP.To2D().Extend(alpha,
+                                                        j)
+                                                    .To3D().IsCollisionable() && pP.To2D().Extend(beta, j).To3D().IsCollisionable())
+                                                { E.CastOnUnit(target); }
+                                            }
+
+                                        }
+                                    }
+                                }
+
+
+
+
+                            }
+                            break;
+                        }
+                    case 9:
+                        {
+                            var target = TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Physical);
+                            var pP = Player.ServerPosition;
+                            var p = target.ServerPosition;
+                            var pD = Vayne.emenu.Item("PushDistance").GetValue<Slider>().Value;
+                            var mode = Vayne.emenu.Item("EMode", true).GetValue<StringList>().SelectedIndex;
+                            if (
+                (p.Extend(pP, -pD).IsCollisionable() || p.Extend(pP, -pD / 2f).IsCollisionable() ||
+                 p.Extend(pP, -pD / 3f).IsCollisionable()))
+                            {
+                                if (!target.CanMove ||
+                                    (target.IsWindingUp))
+                                {
+                                    E.CastOnUnit(target);
+                                }
+                                var hitchance = emenu.Item("EHitchance").GetValue<Slider>().Value;
+                                var angle = 0.20 * hitchance;
+                                const float travelDistance = 0.5f;
+                                var alpha = new Vector2((float)(p.X + travelDistance * Math.Cos(Math.PI / 180 * angle)),
+                                    (float)(p.X + travelDistance * Math.Sin(Math.PI / 180 * angle)));
+                                var beta = new Vector2((float)(p.X - travelDistance * Math.Cos(Math.PI / 180 * angle)),
+                                    (float)(p.X - travelDistance * Math.Sin(Math.PI / 180 * angle)));
+
+                                for (var i = 15; i < pD; i += 100)
+                                {
+                                    if (pP.To2D().Extend(alpha,
+                                            i)
+                                        .To3D().IsCollisionable() && pP.To2D().Extend(beta, i).To3D().IsCollisionable())
                                     {
                                         E.CastOnUnit(target);
                                     }
                                 }
-                            
-
+                                
+                            }
                         }
                         break;
+                    case 10:
+                        {
+                            var target = TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Physical);
+                            var pP = Player.ServerPosition;
+                            var p = target.ServerPosition;
+                            var pD = Vayne.emenu.Item("PushDistance").GetValue<Slider>().Value;
+                            var mode = Vayne.emenu.Item("EMode", true).GetValue<StringList>().SelectedIndex;
+                            if (!target.CanMove ||
+                                    (target.IsWindingUp))
+                            {
+                                E.CastOnUnit(target);
+                            }
 
+                            var hitchance = emenu.Item("EHitchance").GetValue<Slider>().Value;
+                            var angle = 0.20 * hitchance;
+                                const float travelDistance = 0.5f;
+                                var alpha = new Vector2((float)(p.X + travelDistance * Math.Cos(Math.PI / 180 * angle)),
+                                    (float)(p.X + travelDistance * Math.Sin(Math.PI / 180 * angle)));
+                                var beta = new Vector2((float)(p.X - travelDistance * Math.Cos(Math.PI / 180 * angle)),
+                                    (float)(p.X - travelDistance * Math.Sin(Math.PI / 180 * angle)));
 
+                                for (var i = 15; i < pD; i += 100)
+                                {
+                                    if (pP.To2D().Extend(alpha,
+                                            i)
+                                        .To3D().IsCollisionable() || pP.To2D().Extend(beta, i).To3D().IsCollisionable())
+                                {
+                                    E.CastOnUnit(target);
+                                }
+                            }
+                                
+                            
+                        }
+                        break;
+                    case 11:
+                        {
+                            var target = TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Physical);
+                            var pP = Player.ServerPosition;
+                            var p = target.ServerPosition;
+                            var pD = Vayne.emenu.Item("PushDistance").GetValue<Slider>().Value;
+                            var mode = Vayne.emenu.Item("EMode", true).GetValue<StringList>().SelectedIndex;
+                            var prediction = Vayne.E.GetPrediction(target);
+                            for (var i = 15; i < pD; i += 75)
+                            {
+                                var posCF = NavMesh.GetCollisionFlags(
+                                    prediction.UnitPosition.To2D()
+                                        .Extend(
+                                            pP.To2D(),
+                                            -i)
+                                        .To3D());
+                                if (posCF.HasFlag(CollisionFlags.Wall) || posCF.HasFlag(CollisionFlags.Building))
+                                {
+                                    
+                                        E.CastOnUnit(target);
+                                    
+                                }
+                            }
+                            
+                        }
+                        break;
                 }
             }
         }
-
-        
-    
-
-        
     }
 }
-                // Condemn.Run();
+
+
+                
+           
+               
