@@ -225,12 +225,14 @@ namespace hi_im_gosu_Reborn
             emenu.AddItem(new MenuItem("he", "Use E Harass").SetValue(true));
             emenu.AddItem(new MenuItem("UseET", "Use E (Toggle)").SetValue(new KeyBind("T".ToCharArray()[0], KeyBindType.Toggle)));
             emenu.AddItem(new MenuItem("zzrot", "[Beta] ZZrot Condemn").SetValue(new KeyBind("I".ToCharArray()[0], KeyBindType.Toggle))).Permashow(true, "Vayne | ZZRot Toggle", Color.Aqua);
+           // emenu.AddItem(new MenuItem("FlashE", "Flash E").SetValue(true).SetValue(new KeyBind("Y".ToCharArray()[0], KeyBindType.Press)));
 
 
             //emenu.AddItem(new MenuItem("Gap_E", "Use E To Gabcloser").SetValue(true));
             // emenu.AddItem(new MenuItem("GapD", "Anti GapCloser Delay").SetValue(new Slider(0, 0, 1000)).SetTooltip("Sets a delay before the Condemn for Antigapcloser is casted."));
             emenu.AddItem(new MenuItem("EMode", "Use E Mode:", true).SetValue(new StringList(new[] { "Lord's", "Gosu", "Flowers", "VHR", "Marksman", "Sharpshooter", "OKTW", "Shine", "PRADASMART", "PRADAPERFECT", "OLDPRADA", "PRADALEGACY" })));
             emenu.AddItem(new MenuItem("PushDistance", "E Push Distance").SetValue(new Slider(415, 475, 300)));
+            emenu.AddItem(new MenuItem("EHitchance", "E Hitchance").SetValue(new Slider(50, 1, 100)).SetTooltip("Only use this for Prada Condemn Methods"));
             emenu.AddItem(
                 new MenuItem("UseEaa", "Use E after auto").SetValue(
                     new KeyBind("G".ToCharArray()[0], KeyBindType.Toggle)));
@@ -570,6 +572,9 @@ namespace hi_im_gosu_Reborn
 
                 SebbyLib.Orbwalking.Orbwalk(TargetSelector.GetTarget(625, TargetSelector.DamageType.Physical), Game.CursorPos);
             }
+
+           // Condemn.FlashE();
+
             if (menu.Item("zzrot").GetValue<KeyBind>().Active)
             {
                 Condemn.RotE();
