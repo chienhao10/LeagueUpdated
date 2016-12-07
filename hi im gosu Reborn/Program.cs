@@ -100,7 +100,35 @@ namespace hi_im_gosu_Reborn
 
             return !target.HasBuff("FioraW");
         }
-
+        public static void TumbleHandler()
+        {
+            if (Player.Distance(MidPos) >= Player.Distance(DragPos))
+            {
+                if (Player.Position.X < 12000 || Player.Position.X > 12070 || Player.Position.Y < 4800 ||
+                Player.Position.Y > 4872)
+                {
+                    MoveToLimited(new Vector2(12050, 4827).To3D());
+                }
+                else
+                {
+                    MoveToLimited(new Vector2(12050, 4827).To3D());
+                    Q.Cast(DragPos, true);
+                }
+            }
+            else
+            {
+                if (Player.Position.X < 6908 || Player.Position.X > 6978 || Player.Position.Y < 8917 ||
+                Player.Position.Y > 8989)
+                {
+                    MoveToLimited(new Vector2(6958, 8944).To3D());
+                }
+                else
+                {
+                    MoveToLimited(new Vector2(6958, 8944).To3D());
+                    Q.Cast(MidPos, true);
+                }
+            }
+        }
 
         public static void MoveToLimited(Vector3 where)
         {
@@ -142,14 +170,12 @@ namespace hi_im_gosu_Reborn
         /* public static void DrawPointer(Vector3 start, Vector3 end, float len)
          {
              var line = new Geometry.Polygon.Line(start, end, len);
-
              var endNext = end.Extend(new Vector3(1, 0, 0), 100).To2D()
                  .RotateAroundPoint(start.To2D(), 90 * (float)Math.PI / 180);
              var endNext2 = end.Extend(new Vector3(1, 0, 0), 100).To2D()
                  .RotateAroundPoint(start.To2D(), -90 * (float)Math.PI / 180);
              var line2 = new Geometry.Polygon.Line(end.To2D(), endNext, 50);
              var line3 = new Geometry.Polygon.Line(end.To2D(), endNext2, 50);
-
              line2.Draw(System.Drawing.Color.Crimson);
              line3.Draw(System.Drawing.Color.Crimson);
              line.Draw(System.Drawing.Color.Crimson);
@@ -181,16 +207,13 @@ namespace hi_im_gosu_Reborn
                 new MenuItem("aaqaa", "Auto -> Q -> AA").SetValue(new KeyBind("X".ToCharArray()[0], KeyBindType.Press)));
 
             qmenu = menu.AddSubMenu(new Menu("Tumble", "Tumble"));
-            qmenu.AddItem(new MenuItem("QMode", "Use Q Mode:", true).SetValue(new StringList(new[] {"Gosu", "Prada", "Flowers"  })));
             qmenu.AddItem(new MenuItem("UseQC", "Use Q Combo").SetValue(true));
             qmenu.AddItem(new MenuItem("hq", "Use Q Harass").SetValue(true));
             qmenu.AddItem(new MenuItem("restrictq", "Restrict Q usage?").SetValue(true));
             qmenu.AddItem(new MenuItem("UseQJ", "Use Q Farm").SetValue(true));
             qmenu.AddItem(new MenuItem("Junglemana", "Minimum Mana to Use Q Farm").SetValue(new Slider(60, 1, 100)));
-            qmenu.AddItem(new MenuItem("QCheck", "Use Q|Safe Check?", true).SetValue(true));
-            qmenu.AddItem(new MenuItem("QTurret", "Use Q|Dont Cast To Turret", true).SetValue(true));
             qmenu.AddItem(new MenuItem("AntiMQ", "Use Anti - Melee [Q]").SetValue(true));
-            // qmenu.AddItem(new MenuItem("FastQ", "Fast Q").SetValue(true).SetValue(new KeyBind("Q".ToCharArray()[0], KeyBindType.Press)));
+            qmenu.AddItem(new MenuItem("FastQ", "Fast Q").SetValue(true).SetValue(new KeyBind("Q".ToCharArray()[0], KeyBindType.Press)));
             //qmenu.AddItem(new MenuItem("DrawQ", "Draw Q Arrow").SetValue(true));
 
 
@@ -205,7 +228,6 @@ namespace hi_im_gosu_Reborn
             // emenu.AddItem(new MenuItem("GapD", "Anti GapCloser Delay").SetValue(new Slider(0, 0, 1000)).SetTooltip("Sets a delay before the Condemn for Antigapcloser is casted."));
             emenu.AddItem(new MenuItem("EMode", "Use E Mode:", true).SetValue(new StringList(new[] { "Lord's", "Gosu", "Flowers", "VHR", "Marksman", "Sharpshooter", "OKTW", "Shine", "PRADASMART", "PRADAPERFECT", "OLDPRADA", "PRADALEGACY" })));
             emenu.AddItem(new MenuItem("PushDistance", "E Push Distance").SetValue(new Slider(415, 475, 300)));
-            emenu.AddItem(new MenuItem("EHitchance", "E Hitchance").SetValue(new Slider(50, 1, 100))).SetTooltip("Only For Prada Condemn Methods"); 
             emenu.AddItem(
                 new MenuItem("UseEaa", "Use E after auto").SetValue(
                     new KeyBind("G".ToCharArray()[0], KeyBindType.Toggle)));
@@ -234,7 +256,8 @@ namespace hi_im_gosu_Reborn
             }
 
 
-
+            menu.AddItem(new MenuItem("walltumble", "Wall Tumble"))
+                .SetValue(new KeyBind("U".ToCharArray()[0], KeyBindType.Press));
             menu.AddItem(new MenuItem("useR", "Use R Combo").SetValue(true));
             menu.AddItem(new MenuItem("enemys", "If Enemys Around >=").SetValue(new Slider(2, 1, 5)));
             Itemsmenu = menu.AddSubMenu(new Menu("Items", "Items"));
@@ -377,18 +400,16 @@ namespace hi_im_gosu_Reborn
                     Utility.DelayAction.Add(1000, () => cleanse.Cast());
                 }
             }
-            if (hero == null || !hero.IsEnemy || !hero.IsMelee || hero.Type != ObjectManager.Player.Type || args.Target == null)
-            {
-                return;
-            }
-
-            if (args.Target.IsMe)
-            {
-                if (qmenu.Item("QMelee", true).GetValue<bool>() && Q.IsReady())
-                {
-                    Q.Cast(ObjectManager.Player.Position.Extend(hero.Position, -Q.Range));
-                }
-            }
+            if (hero != null)
+                if (args.Target != null)
+                    if (args.Target.IsMe)
+                        if (hero.Type == GameObjectType.obj_AI_Hero)
+                            if (hero.IsEnemy)
+                                if (hero.IsMelee)
+                                    if (args.SData.IsAutoAttack())
+                                        if (qmenu.Item("AntiMQ").GetValue<bool>())
+                                            if (Q.IsReady())
+                                                Q.Cast(ObjectManager.Player.Position.Extend(hero.Position, -Q.Range));
 
         }
 
@@ -477,16 +498,13 @@ namespace hi_im_gosu_Reborn
                      MinionOrderTypes.MaxHealth).FirstOrDefault();
              var Minions = MinionManager.GetMinions(Player.Position.Extend(Game.CursorPos, Q.Range), Player.AttackRange, MinionTypes.All);
              var useQ = qmenu.Item("UseQJ").GetValue<bool>();
-
              int countMinions = 0;
              foreach (var minions in Minions.Where(minion => minion.Health < Player.GetAutoAttackDamage(minion) || minion.Health < Q.GetDamage(minion)))
              {
                  countMinions++;
              }
-
              if (countMinions >= 2 && useQ && Q.IsReady() && Minions != null)
                  Q.Cast(Player.Position.Extend(Game.CursorPos, Q.Range/2));
-
              if (useQ && Q.IsReady() && Orbwalking.InAutoAttackRange(mob) && mob != null)
              {
                  Q.Cast(Game.CursorPos);
@@ -600,146 +618,39 @@ namespace hi_im_gosu_Reborn
                 emenu.Item("UseEaa").SetValue<KeyBind>(new KeyBind("G".ToCharArray()[0], KeyBindType.Toggle));
             }
 
-            if (Q.IsReady() && ((orbwalker.ActiveMode.ToString() == "Combo" && qmenu.Item("UseQC").GetValue<bool>()) || (orbwalker.ActiveMode.ToString() == "Mixed" && qmenu.Item("hq").GetValue<bool>())))
+            if (Q.IsReady()
+                && ((orbwalker.ActiveMode.ToString() == "Combo" && qmenu.Item("UseQC").GetValue<bool>())
+                    || (orbwalker.ActiveMode.ToString() == "Mixed" && qmenu.Item("hq").GetValue<bool>())))
             {
-                switch (qmenu.Item("QMode", true).GetValue<StringList>().SelectedIndex)
+                if (qmenu.Item("restrictq").GetValue<bool>())
                 {
-                    case 0:
-                        {
-                            if (qmenu.Item("restrictq").GetValue<bool>())
-                            {
-                                var after = ObjectManager.Player.Position
-                                            + Normalize(Game.CursorPos - ObjectManager.Player.Position) * 300;
-                                //Game.PrintChat("After: {0}", after);
-                                var disafter = Vector3.DistanceSquared(after, tar.Position);
-                                //Game.PrintChat("DisAfter: {0}", disafter);
-                                //Game.PrintChat("first calc: {0}", (disafter) - (630*630));
-                                if ((disafter < 630 * 630) && disafter > 150 * 150)
-                                {
-                                    Q.Cast(Game.CursorPos);
+                    var after = ObjectManager.Player.Position
+                                + Normalize(Game.CursorPos - ObjectManager.Player.Position) * 300;
+                    //Game.PrintChat("After: {0}", after);
+                    var disafter = Vector3.DistanceSquared(after, tar.Position);
+                    //Game.PrintChat("DisAfter: {0}", disafter);
+                    //Game.PrintChat("first calc: {0}", (disafter) - (630*630));
+                    if ((disafter < 630 * 630) && disafter > 150 * 150)
+                    {
+                        Q.Cast(Game.CursorPos);
 
-                                }
+                    }
 
-                                if (Vector3.DistanceSquared(tar.Position, ObjectManager.Player.Position) > 630 * 630
-                                    && disafter < 630 * 630)
-                                {
-                                    Q.Cast(Game.CursorPos);
+                    if (Vector3.DistanceSquared(tar.Position, ObjectManager.Player.Position) > 630 * 630
+                        && disafter < 630 * 630)
+                    {
+                        Q.Cast(Game.CursorPos);
 
-                                }
-                            }
-                            else
-                            {
-                                Q.Cast(Game.CursorPos);
-
-                            }
-                        }
-                        break;
-                    case 1:
-                        {
-                            if (!Q.IsReady()) return;
-                            if (unit.IsMe && target.IsValid<Obj_AI_Hero>())
-                            {
-                                if (qmenu.Item("UseQC", true).GetValue<bool>() && Q.IsReady())
-                                {
-                                    var tg = target as Obj_AI_Hero;
-                                    if (tg == null) return;
-                                    var tumblePosition = Game.CursorPos;
-                                    {
-                                        tumblePosition = tg.GetTumblePos();
-                                    }
-
-                                }
-                            }
-                            
-                              
+                    }
                 }
-                        break;
-                    case 2:
-                        {
-                            var tar = TargetSelector.GetTarget(800, TargetSelector.DamageType.Physical);
-                            if (qmenu.Item("UseQC", true).GetValue<bool>() && Q.IsReady())
-                            {
-                                
+                else
+                {
+                    Q.Cast(Game.CursorPos);
 
-                                if (CheckTarget(tar, 800f))
-                                {
-
-                                    QLogic(tar);
-                                }
-                            }
-                        
                 }
-                break;
-                }
+                //Q.Cast(Game.CursorPos);
             }
         }
-
-        private static void QLogic(Obj_AI_Base target)
-        {
-
-            if (!Vayne.Q.IsReady())
-            {
-                return;
-            }
-
-            var qPosition = ObjectManager.Player.ServerPosition.Extend(Game.CursorPos, Vayne.Q.Range);
-            var targetDisQ = target.ServerPosition.Distance(qPosition);
-            var canQ = false;
-
-            if (Vayne.qmenu.Item("QTurret", true).GetValue<bool>() && qPosition.UnderTurret(true))
-            {
-                canQ = false;
-            }
-
-            if (Vayne.qmenu.Item("QCheck", true).GetValue<bool>())
-            {
-                if (qPosition.CountEnemiesInRange(300f) >= 3)
-                {
-                    canQ = false;
-                }
-
-                //Catilyn W
-                if (ObjectManager
-                        .Get<Obj_GeneralParticleEmitter>()
-                        .FirstOrDefault(
-                            x =>
-                                x != null && x.IsValid &&
-                                x.Name.ToLower().Contains("yordletrap_idle_red.troy") &&
-                                x.Position.Distance(qPosition) <= 100) != null)
-                {
-                    canQ = false;
-                }
-
-                //Jinx E
-                if (ObjectManager.Get<Obj_AI_Minion>()
-                        .FirstOrDefault(x => x.IsValid && x.IsEnemy && x.Name == "k" &&
-                                             x.Position.Distance(qPosition) <= 100) != null)
-                {
-                    canQ = false;
-                }
-
-                //Teemo R
-                if (ObjectManager.Get<Obj_AI_Minion>()
-                        .FirstOrDefault(x => x.IsValid && x.IsEnemy && x.Name == "Noxious Trap" &&
-                                             x.Position.Distance(qPosition) <= 100) != null)
-                {
-                    canQ = false;
-                }
-            }
-
-            if (targetDisQ >= Vayne.Q.Range && targetDisQ <= Vayne.Q.Range * 2)
-            {
-                canQ = true;
-            }
-
-            if (canQ)
-            {
-                Vayne.Q.Cast(qPosition, true);
-                canQ = false;
-            }
-        }
-    
-
         public static void Orbwalking_BeforeAttack(SebbyLib.Orbwalking.BeforeAttackEventArgs args)
         {
             if (args.Unit.IsMe)
@@ -780,7 +691,10 @@ namespace hi_im_gosu_Reborn
 
             Usepotion();
 
-            hi_im_gosu_Reborn.Cache.Load();
+            if (menu.Item("walltumble").GetValue<KeyBind>().Active)
+            {
+                TumbleHandler();
+            }
 
             if (menu.Item("aaqaa").GetValue<KeyBind>().Active)
             {
