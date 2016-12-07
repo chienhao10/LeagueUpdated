@@ -181,7 +181,7 @@ namespace hi_im_gosu_Reborn
                 new MenuItem("aaqaa", "Auto -> Q -> AA").SetValue(new KeyBind("X".ToCharArray()[0], KeyBindType.Press)));
 
             qmenu = menu.AddSubMenu(new Menu("Tumble", "Tumble"));
-            emenu.AddItem(new MenuItem("QMode", "Use Q Mode:", true).SetValue(new StringList(new[] {"Gosu", "Prada"  })));
+            qmenu.AddItem(new MenuItem("QMode", "Use Q Mode:", true).SetValue(new StringList(new[] {"Gosu", "Prada", "Flowers"  })));
             qmenu.AddItem(new MenuItem("UseQC", "Use Q Combo").SetValue(true));
             qmenu.AddItem(new MenuItem("hq", "Use Q Harass").SetValue(true));
             qmenu.AddItem(new MenuItem("restrictq", "Restrict Q usage?").SetValue(true));
@@ -602,7 +602,7 @@ namespace hi_im_gosu_Reborn
 
             if (Q.IsReady() && ((orbwalker.ActiveMode.ToString() == "Combo" && qmenu.Item("UseQC").GetValue<bool>()) || (orbwalker.ActiveMode.ToString() == "Mixed" && qmenu.Item("hq").GetValue<bool>())))
             {
-                switch (emenu.Item("QMode", true).GetValue<StringList>().SelectedIndex)
+                switch (qmenu.Item("QMode", true).GetValue<StringList>().SelectedIndex)
                 {
                     case 0:
                         {
@@ -780,7 +780,7 @@ namespace hi_im_gosu_Reborn
 
             Usepotion();
 
-
+            hi_im_gosu_Reborn.Cache.Load();
 
             if (menu.Item("aaqaa").GetValue<KeyBind>().Active)
             {
@@ -1038,7 +1038,7 @@ namespace hi_im_gosu_Reborn
                             var pP = Player.ServerPosition;
                             var p = target.ServerPosition;
                             var pD = Vayne.emenu.Item("PushDistance").GetValue<Slider>().Value;
-                            var mode = Vayne.emenu.Item("EMode", true).GetValue<StringList>().SelectedIndex;
+                           // var mode = Vayne.emenu.Item("EMode", true).GetValue<StringList>().SelectedIndex;
                             if ((p.Extend(pP, -pD).IsCollisionable() || p.Extend(pP, -pD / 2f).IsCollisionable() ||
                  p.Extend(pP, -pD / 3f).IsCollisionable()))
                             {
@@ -1099,7 +1099,7 @@ namespace hi_im_gosu_Reborn
                             var pP = Player.ServerPosition;
                             var p = target.ServerPosition;
                             var pD = Vayne.emenu.Item("PushDistance").GetValue<Slider>().Value;
-                            var mode = Vayne.emenu.Item("EMode", true).GetValue<StringList>().SelectedIndex;
+                          //  var mode = Vayne.emenu.Item("EMode", true).GetValue<StringList>().SelectedIndex;
                             if (
                 (p.Extend(pP, -pD).IsCollisionable() || p.Extend(pP, -pD / 2f).IsCollisionable() ||
                  p.Extend(pP, -pD / 3f).IsCollisionable()))
@@ -1136,7 +1136,7 @@ namespace hi_im_gosu_Reborn
                             var pP = Player.ServerPosition;
                             var p = target.ServerPosition;
                             var pD = Vayne.emenu.Item("PushDistance").GetValue<Slider>().Value;
-                            var mode = Vayne.emenu.Item("EMode", true).GetValue<StringList>().SelectedIndex;
+                           // var mode = Vayne.emenu.Item("EMode", true).GetValue<StringList>().SelectedIndex;
                             if (!target.CanMove ||
                                     (target.IsWindingUp))
                             {
@@ -1170,7 +1170,7 @@ namespace hi_im_gosu_Reborn
                             var pP = Player.ServerPosition;
                             var p = target.ServerPosition;
                             var pD = Vayne.emenu.Item("PushDistance").GetValue<Slider>().Value;
-                            var mode = Vayne.emenu.Item("EMode", true).GetValue<StringList>().SelectedIndex;
+                           // var mode = Vayne.emenu.Item("EMode", true).GetValue<StringList>().SelectedIndex;
                             var prediction = Vayne.E.GetPrediction(target);
                             for (var i = 15; i < pD; i += 75)
                             {
