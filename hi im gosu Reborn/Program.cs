@@ -15,6 +15,7 @@ namespace hi_im_gosu_Reborn
     public class Vayne
     {
         public static Spell E;
+        public static Spell E2;
         public static Spell Q;
         public static Spell W;
         public static Spell R;
@@ -184,6 +185,8 @@ namespace hi_im_gosu_Reborn
         {
             Q = new Spell(SpellSlot.Q, 300f);
             W = new Spell(SpellSlot.W);
+            E2 = new Spell(
+               SpellSlot.E,(uint)(650 + ObjectManager.Player.BoundingRadius));
             E = new Spell(SpellSlot.E, 550f);
             E.SetTargetted(0.25f, 1600f);
             R = new Spell(SpellSlot.R);

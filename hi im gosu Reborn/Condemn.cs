@@ -17,7 +17,7 @@ namespace hi_im_gosu_Reborn
             {
                 if (Vayne.zzrot.Cast(target.ServerPosition.To2D()))
                 {
-                   Vayne.E.CastOnUnit(target);
+                   Vayne.E2.CastOnUnit(target);
                 }
             }
         }
