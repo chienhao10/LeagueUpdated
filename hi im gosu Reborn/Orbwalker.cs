@@ -763,7 +763,10 @@ namespace hi_im_gosu_Reborn
                 var spellName = Spell.SData.Name;
                 if (unit.IsMe)
                 {
-                    PushLastTargets(Spell.Target.NetworkId);
+                    if (Spell.Target != null)
+                    {
+                        PushLastTargets(Spell.Target.NetworkId);
+                    }
                     if (IsAutoAttackReset(spellName) && Spell.SData.SpellCastTime == 0)
                     {
                         ResetAutoAttackTimer();
