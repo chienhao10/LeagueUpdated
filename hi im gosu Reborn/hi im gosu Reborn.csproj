@@ -83,6 +83,7 @@
     <Compile Include="Distance.cs" />
     <Compile Include="Geometry.cs" />
     <Compile Include="MyCache.cs" />
+    <Compile Include="Orbwalker.cs" />
     <Compile Include="Parada.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

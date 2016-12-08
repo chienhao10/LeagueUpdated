@@ -6,7 +6,7 @@ using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
 using SharpDX;
-using SebbyLib;
+
 
 #endregion
 
@@ -26,9 +26,9 @@ namespace hi_im_gosu_Reborn
         public static Vector3 TumblePosition = Vector3.Zero;
 
 
-        public static SebbyLib.Orbwalking.Orbwalker orbwalker;
+        public static MyOrbwalker.Orbwalker orbwalker;
 
-        private static string News = "Added New Condemn Method and ZZRot Beta";
+        private static string News = "Added New Custom Orbwalker for better cs'ing and movement";
 
         public static Menu menu;
 
@@ -199,7 +199,7 @@ namespace hi_im_gosu_Reborn
             menu = new Menu("Gosu", "Gosu", true);
             //Orbwalker
             menu.AddSubMenu(new Menu("Orbwalker", "Orbwalker"));
-            orbwalker = new SebbyLib.Orbwalking.Orbwalker(menu.SubMenu("Orbwalker"));
+            orbwalker = new MyOrbwalker.Orbwalker(menu.SubMenu("Orbwalker"));
             //TS
             var TargetSelectorMenu = new Menu("Target Selector", "Target Selector");
             TargetSelector.AddToMenu(TargetSelectorMenu);
@@ -216,7 +216,8 @@ namespace hi_im_gosu_Reborn
             qmenu.AddItem(new MenuItem("UseQJ", "Use Q Farm").SetValue(true));
             qmenu.AddItem(new MenuItem("Junglemana", "Minimum Mana to Use Q Farm").SetValue(new Slider(60, 1, 100)));
             qmenu.AddItem(new MenuItem("AntiMQ", "Use Anti - Melee [Q]").SetValue(true));
-            qmenu.AddItem(new MenuItem("FastQ", "Fast Q").SetValue(true).SetValue(new KeyBind("Q".ToCharArray()[0], KeyBindType.Press)));
+           // qmenu.AddItem(new MenuItem("FastQ", "Fast Q").SetValue(true).SetValue(new KeyBind("Q".ToCharArray()[0], KeyBindType.Press)));
+            qmenu.AddItem(new MenuItem("FocusTwoW", "Focus 2 W Stacks").SetValue(true));
             //qmenu.AddItem(new MenuItem("DrawQ", "Draw Q Arrow").SetValue(true));
 
 
@@ -314,8 +315,8 @@ namespace hi_im_gosu_Reborn
             E.SetTargetted(0.25f, 2200f);
             Obj_AI_Base.OnProcessSpellCast += Game_ProcessSpell;
             Game.OnUpdate += Game_OnGameUpdate;
-            SebbyLib.Orbwalking.AfterAttack += Orbwalking_AfterAttack;
-            SebbyLib.Orbwalking.BeforeAttack += Orbwalking_BeforeAttack;
+            MyOrbwalker.AfterAttack += Orbwalking_AfterAttack;
+            MyOrbwalker.BeforeAttack += Orbwalking_BeforeAttack;
             AntiGapcloser.OnEnemyGapcloser += AntiGapcloser_OnEnemyGapcloser;
             Interrupter2.OnInterruptableTarget += Interrupter2_OnInterruptableTarget;
             GameObject.OnCreate += OnCreate;
@@ -548,7 +549,7 @@ namespace hi_im_gosu_Reborn
 
                 if (countMinions >= 2 && useQ && Q.IsReady() && Minions != null) Q.Cast(Player.Position.Extend(Game.CursorPos, Q.Range / 2));
 
-                if (useQ && Q.IsReady() && SebbyLib.Orbwalking.InAutoAttackRange(mob) && mob != null)
+                if (useQ && Q.IsReady() && MyOrbwalker.InAutoAttackRange(mob) && mob != null)
                 {
                     Q.Cast(Game.CursorPos);
 
@@ -570,7 +571,7 @@ namespace hi_im_gosu_Reborn
                 }
 
 
-                SebbyLib.Orbwalking.Orbwalk(TargetSelector.GetTarget(625, TargetSelector.DamageType.Physical), Game.CursorPos);
+               MyOrbwalker.Orbwalk(TargetSelector.GetTarget(625, TargetSelector.DamageType.Physical), Game.CursorPos);
             }
 
            // Condemn.FlashE();
@@ -589,7 +590,7 @@ namespace hi_im_gosu_Reborn
 
 
                 }
-                SebbyLib.Orbwalking.Orbwalk(TargetSelector.GetTarget(625, TargetSelector.DamageType.Physical), Game.CursorPos);
+               MyOrbwalker.Orbwalk(TargetSelector.GetTarget(625, TargetSelector.DamageType.Physical), Game.CursorPos);
             }
 
             if (orbwalker.ActiveMode.ToString() == "Combo")
@@ -659,7 +660,7 @@ namespace hi_im_gosu_Reborn
                 //Q.Cast(Game.CursorPos);
             }
         }
-        public static void Orbwalking_BeforeAttack(SebbyLib.Orbwalking.BeforeAttackEventArgs args)
+        public static void Orbwalking_BeforeAttack(MyOrbwalker.BeforeAttackEventArgs args)
         {
             if (args.Unit.IsMe)
             {
@@ -706,7 +707,7 @@ namespace hi_im_gosu_Reborn
 
             if (menu.Item("aaqaa").GetValue<KeyBind>().Active)
             {
-                SebbyLib.Orbwalking.Orbwalk(TargetSelector.GetTarget(625, TargetSelector.DamageType.Physical), Game.CursorPos);
+               MyOrbwalker.Orbwalk(TargetSelector.GetTarget(625, TargetSelector.DamageType.Physical), Game.CursorPos);
             }
 
             if (Itemsmenu.Item("QSS").GetValue<bool>())
