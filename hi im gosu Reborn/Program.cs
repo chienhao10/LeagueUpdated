@@ -207,7 +207,7 @@ namespace hi_im_gosu_Reborn
             emenu.AddItem(new MenuItem("EMode", "Use E Mode:", true).SetValue(new StringList(new[] { "Lord's", "Gosu", "Flowers", "VHR", "Marksman", "Sharpshooter", "OKTW", "Shine", "PRADASMART", "PRADAPERFECT", "OLDPRADA", "PRADALEGACY" })));
             emenu.AddItem(new MenuItem("PushDistance", "E Push Distance").SetValue(new Slider(415, 475, 300)));
             emenu.AddItem(new MenuItem("EHitchance", "E Hitchance").SetValue(new Slider(50, 1, 100)).SetTooltip("Only use this for Prada Condemn Methods"));
-            emenu.AddItem(new MenuItem("UseEaa", "Use E after auto").SetValue(new KeyBind("G".ToCharArray()[0], KeyBindType.Press)));
+            emenu.AddItem(new MenuItem("UseEaa", "Use E after auto").SetValue(new KeyBind("M".ToCharArray()[0], KeyBindType.Press)));
 
 
 
