@@ -25,7 +25,7 @@ namespace Lord_s_Vayne
 
         public static MyOrbwalker.Orbwalker orbwalker;
 
-        private static string News = "Welcome to Lord's Vayne";
+        private static string News = "Welcome to Love's Vayne";
 
         public static Menu menu;
 
@@ -89,7 +89,7 @@ namespace Lord_s_Vayne
                 if (Program.Player.ChampionName != ChampName) return;
                 Program.spellData = new Dictionary<string, SpellSlot>();
  
-                Program.menu = new Menu("Lord's Vayne", "Lord's Vayne", true);
+                Program.menu = new Menu("Love's Vayne", "Love's Vayne", true);
             
                 Program.menu.AddSubMenu(new Menu("Orbwalker", "Orbwalker"));
                 Program.orbwalker = new MyOrbwalker.Orbwalker(Program.menu.SubMenu("Orbwalker"));
@@ -100,7 +100,7 @@ namespace Lord_s_Vayne
                 Program.menu.AddSubMenu(TargetSelectorMenu);
 
                 Program.menu.AddItem(
-                    new MenuItem("aaqaa", "Auto -> Q -> AA").SetValue(new KeyBind("X".ToCharArray()[0], KeyBindType.Press)));
+                    new MenuItem("aaqaa", "Auto -> Q -> AA").SetValue(new KeyBind("N".ToCharArray()[0], KeyBindType.Press)));
 
                 Program.qmenu = Program.menu.AddSubMenu(new Menu("Tumble", "Tumble"));
                 Program.qmenu.AddItem(new MenuItem("FastQ", "Fast Q").SetValue(true).SetValue(true).SetTooltip("Q Animation Cancelation"));
@@ -117,18 +117,18 @@ namespace Lord_s_Vayne
 
                 Program.emenu = Program.menu.AddSubMenu(new Menu("Condemn", "Condemn"));
                 Program.emenu.AddItem(new MenuItem("UseEC", "Use E Combo").SetValue(true));
-                Program.emenu.AddItem(new MenuItem("he", "Use E Harass").SetValue(true));
-                Program.emenu.AddItem(new MenuItem("UseET", "Use E (Toggle)").SetValue(new KeyBind("T".ToCharArray()[0], KeyBindType.Toggle)));
+                Program.emenu.AddItem(new MenuItem("he", "Use E Harass").SetValue(false));
+                Program.emenu.AddItem(new MenuItem("UseET", "Use E (Toggle)").SetValue(new KeyBind("L".ToCharArray()[0], KeyBindType.Toggle)));
                 Program.emenu.AddItem(new MenuItem("zzrot", "[Beta] ZZrot Condemn").SetValue(new KeyBind("I".ToCharArray()[0], KeyBindType.Toggle))).Permashow(true, "Vayne | ZZRot Toggle", Color.Aqua);
                 // emenu.AddItem(new MenuItem("FlashE", "Flash E").SetValue(true).SetValue(new KeyBind("Y".ToCharArray()[0], KeyBindType.Press)));
 
 
                 //emenu.AddItem(new MenuItem("Gap_E", "Use E To Gabcloser").SetValue(true));
                 // emenu.AddItem(new MenuItem("GapD", "Anti GapCloser Delay").SetValue(new Slider(0, 0, 1000)).SetTooltip("Sets a delay before the Condemn for Antigapcloser is casted."));
-                Program.emenu.AddItem(new MenuItem("EMode", "Use E Mode:", true).SetValue(new StringList(new[] { "Lord's", "Gosu", "Flowers", "VHR", "Marksman", "Sharpshooter", "OKTW", "Shine", "PRADASMART", "PRADAPERFECT", "OLDPRADA", "PRADALEGACY" })));
+                Program.emenu.AddItem(new MenuItem("EMode", "Use E Mode:", true).SetValue(new StringList(new[] { "Love's", "Gosu", "Flowers", "VHR", "Marksman", "Sharpshooter", "OKTW", "Shine", "PRADASMART", "PRADAPERFECT", "OLDPRADA", "PRADALEGACY" })));
                 Program.emenu.AddItem(new MenuItem("PushDistance", "E Push Distance").SetValue(new Slider(415, 475, 300)));
                 Program.emenu.AddItem(new MenuItem("EHitchance", "E Hitchance").SetValue(new Slider(50, 1, 100)).SetTooltip("Only use this for Prada Condemn Methods"));
-                Program.emenu.AddItem(new MenuItem("UseEaa", "Use E after auto").SetValue(new KeyBind("M".ToCharArray()[0], KeyBindType.Press)));
+                Program.emenu.AddItem(new MenuItem("UseEaa", "Use E after auto").SetValue(new KeyBind("E".ToCharArray()[0], KeyBindType.Press)));
 
 
             Program.rmenu = Program.menu.AddSubMenu(new Menu("Ult", "Ult"));
@@ -140,8 +140,8 @@ namespace Lord_s_Vayne
                 Program.imenu.AddItem(new MenuItem("Interrupt", "Interrupt Danger Spells", true).SetValue(true));
                 Program.imenu.AddItem(new MenuItem("AntiAlistar", "Interrupt Alistar W", true).SetValue(true));
                 Program.imenu.AddItem(new MenuItem("AntiRengar", "Interrupt Rengar Jump", true).SetValue(true));
-                Program.imenu.AddItem(new MenuItem("AntiKhazix", "Interrupt Khazix R", true).SetValue(true));
-                Program.imenu.AddItem(new MenuItem("AntiKhazix", "Interrupt Khazix R", true).SetValue(true));
+                Program.imenu.AddItem(new MenuItem("AntiKhazix", "Interrupt Khazix R", false).SetValue(false));
+                Program.imenu.AddItem(new MenuItem("AntiKhazix", "Interrupt Khazix R", false).SetValue(false));
 
 
                 Program.gmenu = Program.menu.AddSubMenu(new Menu("Gap Closer", "Gap Closer"));
@@ -155,7 +155,7 @@ namespace Lord_s_Vayne
 
 
                 
-                Program.menu.AddItem(new MenuItem("useR", "Use R Combo").SetValue(false));
+                Program.menu.AddItem(new MenuItem("useR", "Use R Combo").SetValue(true));
                 Program.menu.AddItem(new MenuItem("enemys", "If Enemys Around >=").SetValue(new Slider(2, 1, 5)));
 
 
@@ -179,13 +179,13 @@ namespace Lord_s_Vayne
                 //  Drawing.OnDraw += DrawingOnOnDraw;
 
 
-                //Game.PrintChat("<font color='#881df2'>Blm95 Vayne Reborn by LordZEDith</font> Loaded.");
-                Game.PrintChat("<font size='30'>Lord's Vayne</font> <font color='#b756c5'>by LordZEDith</font>");
+                //Game.PrintChat("<font color='#881df2'>Blm95 Vayne Reborn by Lovetaiwan</font> Loaded.");
+                Game.PrintChat("<font size='30'>Love's Vayne</font> <font color='#b756c5'>by LordZEDith</font>");
                 Game.PrintChat("<font color='#b756c5'>NEWS: </font>" + Program.News);
                 //Game.PrintChat(
                 // "<font color='#f2f21d'>Do you like it???  </font> <font color='#ff1900'>Drop 1 Upvote in Database </font>");
-                //  Game.PrintChat(
-                //  "<font color='#f2f21d'>Buy me cigars </font> <font color='#ff1900'>ssssssssssmith@hotmail.com</font> (10) S");
+                Game.PrintChat(
+                "<font color='#f2f21d'>Buy me cigars </font> <font color='#ff1900'>ssssssssssmith@hotmail.com</font> (10) S");
                 Program.menu.AddToMainMenu();
             }
         }

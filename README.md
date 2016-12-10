@@ -1,2 +1,2 @@
-# LeagueUpdated
-Will be updating both EzEvade and xAwareness 
+# LeagueUpdated2
+Will not be updating both EzEvade and xAwareness 
