@@ -1064,7 +1064,7 @@ namespace hi_im_gosu_Reborn
 
                     if (_config.Item("LastHit").GetValue<KeyBind>().Active)
                     {
-                        return OrbwalkingMode.LastHit;
+                        return OrbwalkingMode.Mixed;
                     }
 
                     if (_config.Item(this.CustomModeName) != null
@@ -1765,7 +1765,7 @@ namespace hi_im_gosu_Reborn
                     ObjectManager.Get<Obj_AI_Minion>()
                         .Any(
                             minion =>
-                            (noneKillableMinion != null ? noneKillableMinion.NetworkId != minion.NetworkId : true)
+                            (noneKillableMinion != null ? noneKillableMinion.NetworkId != minion.NetworkId : true)  
                             && minion.IsValidTarget() && minion.Team != GameObjectTeam.Neutral
                             && this.InAutoAttackRange(minion) && MinionManager.IsMinion(minion, false)
                             && LeagueSharp.Common.HealthPrediction.LaneClearHealthPrediction(

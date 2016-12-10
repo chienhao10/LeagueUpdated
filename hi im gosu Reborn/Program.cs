@@ -102,35 +102,7 @@ namespace hi_im_gosu_Reborn
 
             return !target.HasBuff("FioraW");
         }
-        public static void TumbleHandler()
-        {
-            if (Player.Distance(MidPos) >= Player.Distance(DragPos))
-            {
-                if (Player.Position.X < 12000 || Player.Position.X > 12070 || Player.Position.Y < 4800 ||
-                Player.Position.Y > 4872)
-                {
-                    MoveToLimited(new Vector2(12050, 4827).To3D());
-                }
-                else
-                {
-                    MoveToLimited(new Vector2(12050, 4827).To3D());
-                    Q.Cast(DragPos, true);
-                }
-            }
-            else
-            {
-                if (Player.Position.X < 6908 || Player.Position.X > 6978 || Player.Position.Y < 8917 ||
-                Player.Position.Y > 8989)
-                {
-                    MoveToLimited(new Vector2(6958, 8944).To3D());
-                }
-                else
-                {
-                    MoveToLimited(new Vector2(6958, 8944).To3D());
-                    Q.Cast(MidPos, true);
-                }
-            }
-        }
+       
 
         public static void MoveToLimited(Vector3 where)
         {
@@ -235,9 +207,7 @@ namespace hi_im_gosu_Reborn
             emenu.AddItem(new MenuItem("EMode", "Use E Mode:", true).SetValue(new StringList(new[] { "Lord's", "Gosu", "Flowers", "VHR", "Marksman", "Sharpshooter", "OKTW", "Shine", "PRADASMART", "PRADAPERFECT", "OLDPRADA", "PRADALEGACY" })));
             emenu.AddItem(new MenuItem("PushDistance", "E Push Distance").SetValue(new Slider(415, 475, 300)));
             emenu.AddItem(new MenuItem("EHitchance", "E Hitchance").SetValue(new Slider(50, 1, 100)).SetTooltip("Only use this for Prada Condemn Methods"));
-            emenu.AddItem(
-                new MenuItem("UseEaa", "Use E after auto").SetValue(
-                    new KeyBind("G".ToCharArray()[0], KeyBindType.Toggle)));
+            emenu.AddItem(new MenuItem("UseEaa", "Use E after auto").SetValue(new KeyBind("G".ToCharArray()[0], KeyBindType.Press)));
 
 
 
@@ -320,6 +290,7 @@ namespace hi_im_gosu_Reborn
             SebbyLib.Orbwalking.BeforeAttack += Orbwalking_BeforeAttack;
             AntiGapcloser.OnEnemyGapcloser += AntiGapcloser_OnEnemyGapcloser;
             Interrupter2.OnInterruptableTarget += Interrupter2_OnInterruptableTarget;
+            Obj_AI_Base.OnPlayAnimation += OnPlay;
             GameObject.OnCreate += OnCreate;
             //  Drawing.OnDraw += DrawingOnOnDraw;
 
@@ -517,7 +488,18 @@ namespace hi_im_gosu_Reborn
                  Q.Cast(Game.CursorPos);
              }
          }*/
-
+        public static void OnPlay(Obj_AI_Base sender, GameObjectPlayAnimationEventArgs args)
+        {
+            if (sender.IsMe)
+            {
+                switch (args.Animation)
+                {
+                    case "Spell1a":
+                   Game.SendEmote(Emote.Dance);
+                        break;
+                }
+            }
+        }
 
         public static void Orbwalking_AfterAttack(AttackableUnit unit, AttackableUnit target)
         {
@@ -553,6 +535,7 @@ namespace hi_im_gosu_Reborn
                 if (useQ && Q.IsReady() && SebbyLib.Orbwalking.InAutoAttackRange(mob) && mob != null)
                 {
                     Q.Cast(Game.CursorPos);
+                    Game.SendEmote(Emote.Dance);
 
                 }
             }
@@ -568,6 +551,7 @@ namespace hi_im_gosu_Reborn
                 {
 
                     Q.Cast(Game.CursorPos);
+                    Game.SendEmote(Emote.Dance);
 
                 }
 
@@ -582,17 +566,6 @@ namespace hi_im_gosu_Reborn
                 Condemn.RotE();
             }
 
-            if (qmenu.Item("FastQ").GetValue<KeyBind>().Active)
-
-            {
-                if (Q.IsReady())
-                {
-                    Q.Cast(Game.CursorPos);
-
-
-                }
-               SebbyLib.Orbwalking.Orbwalk(TargetSelector.GetTarget(625, TargetSelector.DamageType.Physical), Game.CursorPos);
-            }
 
             if (orbwalker.ActiveMode.ToString() == "Combo")
             {
@@ -643,6 +616,7 @@ namespace hi_im_gosu_Reborn
                     if ((disafter < 630 * 630) && disafter > 150 * 150)
                     {
                         Q.Cast(Game.CursorPos);
+                        Game.SendEmote(Emote.Dance);
 
                     }
 
@@ -650,12 +624,15 @@ namespace hi_im_gosu_Reborn
                         && disafter < 630 * 630)
                     {
                         Q.Cast(Game.CursorPos);
+                        Game.SendEmote(Emote.Dance);
 
                     }
                 }
                 else
                 {
                     Q.Cast(Game.CursorPos);
+                    Game.SendEmote(Emote.Dance);
+
 
                 }
                 //Q.Cast(Game.CursorPos);
@@ -699,16 +676,12 @@ namespace hi_im_gosu_Reborn
                 R.Cast();
             }
 
-            Usepotion();
-
-            if (menu.Item("walltumble").GetValue<KeyBind>().Active)
-            {
-                TumbleHandler();
-            }
+            Usepotion(); 
 
             if (menu.Item("aaqaa").GetValue<KeyBind>().Active)
             {
                SebbyLib.Orbwalking.Orbwalk(TargetSelector.GetTarget(625, TargetSelector.DamageType.Physical), Game.CursorPos);
+              
             }
 
             if (Itemsmenu.Item("QSS").GetValue<bool>())
