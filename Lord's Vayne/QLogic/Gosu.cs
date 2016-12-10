@@ -81,7 +81,7 @@ namespace Lord_s_Vayne.QLogic
 
 
                 }
-                //Q.Cast(Game.CursorPos);
+                //Q.Cast(Game.CursorPos);//
             }
         }
 
